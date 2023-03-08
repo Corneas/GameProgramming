@@ -40,6 +40,10 @@ public class BuildingManager : MonoBehaviour
         {
             buildingType = buildingTypeList.list[2];
         }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            buildingType = buildingTypeList.list[3];
+        }
     }
 
     private Vector3 GetMouseWorldPosition()
