@@ -5,16 +5,33 @@ using UnityEngine.UI;
 
 public class BuildingTypeSelectUI : MonoBehaviour
 {
+    private Dictionary<BuildingTypeSO, Transform> btnTransformDicionary;
+
     private BuildingTypeListSO btnTypeList;
-    private Dictionary<BuildingTypeSO, Transform> btnTypeTransformDictionary;
+
+    [SerializeField]
+    private Sprite arrowSpr;
+
+    private Transform arrowBtn;
 
     private void Awake()
     {
         btnTypeList = Resources.Load<BuildingTypeListSO>(typeof(BuildingTypeListSO).Name);
 
-        btnTypeTransformDictionary = new Dictionary<BuildingTypeSO, Transform>();
+        btnTransformDicionary = new Dictionary<BuildingTypeSO, Transform>();
+        
 
         Transform btnsTemplate = transform.Find("BtnTemplate");
+
+        arrowBtn = Instantiate(btnsTemplate, transform);
+        arrowBtn.gameObject.SetActive(true);
+
+        arrowBtn.Find("Image").GetComponent<Image>().sprite = arrowSpr;
+
+        arrowBtn.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            BuildingManager.Instance.SetActiveBuildingType(null);
+        });
 
         btnsTemplate.gameObject.SetActive(false);
 
@@ -31,7 +48,33 @@ public class BuildingTypeSelectUI : MonoBehaviour
                 BuildingManager.Instance.SetActiveBuildingType(btnTypeItem);
             });
 
-            btnTypeTransformDictionary[btnTypeItem] = btnTransform;
+            btnTransformDicionary[btnTypeItem] = btnTransform;
+        }
+    }
+
+    private void Update()
+    {
+        UpdateActiveBuildingTypeButton();
+    }
+
+    private void UpdateActiveBuildingTypeButton()
+    {
+        arrowBtn.Find("Selected").gameObject.SetActive(false);
+        foreach (BuildingTypeSO buildingType in btnTransformDicionary.Keys)
+        {
+            Transform btnTransform = btnTransformDicionary[buildingType];
+            btnTransform.Find("Selected").gameObject.SetActive(false);
+        }
+
+        BuildingTypeSO activeBuildingType = BuildingManager.Instance.GetActiveBuildingType();
+
+        if (activeBuildingType == null)
+        {
+            arrowBtn.Find("Selected").gameObject.SetActive(true);
+        }
+        else
+        {
+            btnTransformDicionary[activeBuildingType].Find("Selected").gameObject.SetActive(true);
         }
     }
 

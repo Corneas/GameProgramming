@@ -28,7 +28,8 @@ public class BuildingManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
-            Instantiate(activeBuildingType.prefab, GetMouseWorldPosition(), Quaternion.identity);
+            if(activeBuildingType != null)
+                Instantiate(activeBuildingType.prefab, GetMouseWorldPosition(), Quaternion.identity);
         }
 
     }
@@ -43,5 +44,10 @@ public class BuildingManager : MonoBehaviour
     public void SetActiveBuildingType(BuildingTypeSO buildingType)
     {
         activeBuildingType = buildingType;
+    }
+
+    public BuildingTypeSO GetActiveBuildingType()
+    {
+        return activeBuildingType;
     }
 }
