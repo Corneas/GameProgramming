@@ -17,12 +17,14 @@ public class ResourceUI : MonoBehaviour
         resourceTypeTransformDictionary = new Dictionary<ResourceTypeSO, Transform>();
 
         Transform resourceTemplate = transform.Find("ResourceTemplate");
+
         resourceTemplate.gameObject.SetActive(false);
 
         int index = 0;
         foreach(ResourceTypeSO resourceTypeItem in resourceTypeList.list)
         {
             Transform resourceTransform = Instantiate(resourceTemplate, transform);
+
             resourceTransform.gameObject.SetActive(true);
 
             resourceTransform.Find("Image").GetComponent<Image>().sprite = resourceTypeItem.resourceSprite;
