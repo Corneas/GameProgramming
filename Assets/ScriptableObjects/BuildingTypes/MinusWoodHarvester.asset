@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameString: MinusWoodHarvester
   prefab: {fileID: 8493229178591858552, guid: 8a0bcf35fa57b4e49807f0291e9e6d9d, type: 3}
-  resourceSprite: {fileID: 0}
+  resourceSprite: {fileID: 21300000, guid: 449adddf53624da4ea370a2518ee6111, type: 3}
   resourceGeneratorData:
     timerMax: 0.5
     resourceType: {fileID: 11400000, guid: 7e6f878f87ce2b147b3d70ab090e499e, type: 2}

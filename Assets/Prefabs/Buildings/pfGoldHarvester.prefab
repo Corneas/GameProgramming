@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6281289945896223487}
   - component: {fileID: 7192341808103137067}
+  - component: {fileID: 1691777159307902424}
   m_Layer: 0
   m_Name: sprite
   m_TagString: Untagged
@@ -73,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 449adddf53624da4ea370a2518ee6111, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8ead931dd91bff8489e75de9c414f17f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -84,6 +85,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1691777159307902424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 206799601488355027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a276838ec43855f46be06d96fe57f855, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  runOnce: 1
 --- !u!1 &1709566734182695976
 GameObject:
   m_ObjectHideFlags: 0
@@ -93,10 +107,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8493229178591858552}
-  - component: {fileID: -1060294140143321861}
-  - component: {fileID: 757585342034665855}
+  - component: {fileID: 3670603708281337884}
+  - component: {fileID: 830952334925169196}
+  - component: {fileID: 8590712564173704850}
   m_Layer: 0
-  m_Name: pfMinusWoodHarvester
+  m_Name: pfGoldHarvester
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -118,7 +133,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-1060294140143321861
+--- !u!114 &3670603708281337884
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,7 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb69ea5de35ec24fb0b46040d7dbb41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &757585342034665855
+--- !u!114 &830952334925169196
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,4 +157,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64db80e0e95aed04b9c83ece2110d9de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingType: {fileID: 11400000, guid: 3873cb9b901627d4a89239f638cddc82, type: 2}
+  buildingType: {fileID: 11400000, guid: 8d0237c526dcc8a4683015b2ad3662f7, type: 2}
+--- !u!61 &8590712564173704850
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709566734182695976}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 6.804801, y: 5.2597656}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 6.804801, y: 5.2597656}
+  m_EdgeRadius: 0

@@ -53,7 +53,7 @@ public class ResourceManager : MonoBehaviour
     {
         foreach(ResourceTypeSO resourceType in resourceAmountDictionary.Keys)
         {
-            Debug.Log(resourceType.nameString + ": " + resourceAmountDictionary[resourceType]);
+            //Debug.Log(resourceType.nameString + ": " + resourceAmountDictionary[resourceType]);
         }
     }
 
