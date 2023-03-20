@@ -22,17 +22,6 @@ public class ResourceGenerator : MonoBehaviour
 
     private void Start()
     {
-        Collider2D[] collider2DArr = Physics2D.OverlapCircleAll(transform.position, resourceGeneratorData.resourceDetectionRadius);
-        foreach (Collider2D collider2D in collider2DArr)
-        {
-            ResourceNode resourceNode = collider2D.GetComponent<ResourceNode>();
-            if (resourceNode != null)
-            {
-                if(resourceNode.resourceType == resourceGeneratorData.resourceType)
-                nearbyResourceAmount++;
-            }
-
-        }
 
         nearbyResourceAmount = Mathf.Clamp(nearbyResourceAmount, 0, resourceGeneratorData.maxResourceAmount);
         if(nearbyResourceAmount == 0)
@@ -55,5 +44,40 @@ public class ResourceGenerator : MonoBehaviour
             timer += timerMax;
             ResourceManager.Instance.AddResource(resourceGeneratorData.resourceType, getResourceAmount);
         }
+    }
+
+    public ResourceGeneratorData GetResourceGeneratorData()
+    {
+        return resourceGeneratorData;
+    }
+
+    public float GetTimerNormalized()
+    {
+        return timer / timerMax;
+    }
+
+    public float GetAmountGeneratorPerSecond()
+    {
+        return 1 / timerMax;
+    }
+
+    public static int GetNearbyResourceAmount(ResourceGeneratorData resourceGeneratorData, Vector3 pos)
+    {
+        Collider2D[] collider2DArr = Physics2D.OverlapCircleAll(pos, resourceGeneratorData.resourceDetectionRadius);
+
+        int nearbyResourceAmount = 0;
+        foreach (Collider2D collider2D in collider2DArr)
+        {
+            ResourceNode resourceNode = collider2D.GetComponent<ResourceNode>();
+            if (resourceNode != null)
+            {
+                if (resourceNode.resourceType == resourceGeneratorData.resourceType)
+                    nearbyResourceAmount++;
+            }
+
+        }
+
+        nearbyResourceAmount = Mathf.Clamp(nearbyResourceAmount, 0, resourceGeneratorData.maxResourceAmount);
+        return nearbyResourceAmount;
     }
 }

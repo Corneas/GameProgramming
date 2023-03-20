@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6281289945896223487}
   - component: {fileID: 7192341808103137067}
-  - component: {fileID: 7863432014217526965}
+  - component: {fileID: 8350780192822990665}
   m_Layer: 0
   m_Name: sprite
   m_TagString: Untagged
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 449adddf53624da4ea370a2518ee6111, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7030b8e3eb49e8440ae8eb3ec8b45d05, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7863432014217526965
+--- !u!114 &8350780192822990665
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -109,9 +109,9 @@ GameObject:
   - component: {fileID: 8493229178591858552}
   - component: {fileID: -1060294140143321861}
   - component: {fileID: 757585342034665855}
-  - component: {fileID: 5481672900424986470}
+  - component: {fileID: 5215951956134151554}
   m_Layer: 0
-  m_Name: pfMinusWoodHarvester
+  m_Name: pfHQ
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -130,7 +130,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6281289945896223487}
-  - {fileID: 2933089671006115462}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -158,8 +157,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64db80e0e95aed04b9c83ece2110d9de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingType: {fileID: 11400000, guid: 3873cb9b901627d4a89239f638cddc82, type: 2}
---- !u!61 &5481672900424986470
+  buildingType: {fileID: 11400000, guid: ade8eb6401d7160479ee1bec699688b9, type: 2}
+--- !u!61 &5215951956134151554
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -172,7 +171,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.51}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -183,67 +182,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 6.805486, y: 5.330078}
+  m_Size: {x: 6.805486, y: 4}
   m_EdgeRadius: 0
---- !u!1001 &8862435643277548070
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 8493229178591858552}
-    m_Modifications:
-    - target: {fileID: 5929516403710119072, guid: ddfacc1136989394280829064e9fa417, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5929516403710119072, guid: ddfacc1136989394280829064e9fa417, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 14.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 5929516403710119072, guid: ddfacc1136989394280829064e9fa417, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5929516403710119072, guid: ddfacc1136989394280829064e9fa417, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5929516403710119072, guid: ddfacc1136989394280829064e9fa417, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5929516403710119072, guid: ddfacc1136989394280829064e9fa417, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5929516403710119072, guid: ddfacc1136989394280829064e9fa417, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5929516403710119072, guid: ddfacc1136989394280829064e9fa417, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5929516403710119072, guid: ddfacc1136989394280829064e9fa417, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5929516403710119072, guid: ddfacc1136989394280829064e9fa417, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5929516403710119072, guid: ddfacc1136989394280829064e9fa417, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5929516403710119103, guid: ddfacc1136989394280829064e9fa417, type: 3}
-      propertyPath: m_Name
-      value: ResourceGeneratorOverlay
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ddfacc1136989394280829064e9fa417, type: 3}
---- !u!4 &2933089671006115462 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5929516403710119072, guid: ddfacc1136989394280829064e9fa417, type: 3}
-  m_PrefabInstance: {fileID: 8862435643277548070}
-  m_PrefabAsset: {fileID: 0}

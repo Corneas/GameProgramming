@@ -10,12 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 18be3870f68fa8e47a5ab6349c9ee5c9, type: 3}
-  m_Name: MinusWoodHarvester
+  m_Name: HQ
   m_EditorClassIdentifier: 
-  nameString: MinusWoodHarvester
-  prefab: {fileID: 8493229178591858552, guid: 8a0bcf35fa57b4e49807f0291e9e6d9d, type: 3}
-  resourceSprite: {fileID: 21300000, guid: 449adddf53624da4ea370a2518ee6111, type: 3}
+  nameString: HQ
+  prefab: {fileID: 8493229178591858552, guid: e4b8798178747034d9502d9a98d36c81, type: 3}
+  resourceSprite: {fileID: 21300000, guid: 7030b8e3eb49e8440ae8eb3ec8b45d05, type: 3}
+  minConstructionRadius: 0
   resourceGeneratorData:
-    timerMax: 0.5
+    timerMax: 1
     resourceType: {fileID: 11400000, guid: 7e6f878f87ce2b147b3d70ab090e499e, type: 2}
-    resourceAmount: -1
+    resourceAmount: 7
+    resourceDetectionRadius: 7
+    maxResourceAmount: 0
