@@ -4,63 +4,88 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class BuildingTypeSelectUI : MonoBehaviour
 {
-    private Dictionary<BuildingTypeSO, Transform> btnTransformDicionary;
+    [SerializeField] private Sprite arrowSprite;
+    [SerializeField] private List<BuildingTypeSO> ignoreBuildingTypeList;
 
-    private BuildingTypeListSO btnTypeList;
-
-    [SerializeField]
-    private Sprite arrowSpr;
-    [SerializeField]
-    private List<BuildingTypeSO> ignoreBuildingTypeList;
+    private Dictionary<BuildingTypeSO, Transform> btnTransformDictionarty;
 
     private Transform arrowBtn;
 
     private void Awake()
     {
-        btnTypeList = Resources.Load<BuildingTypeListSO>(typeof(BuildingTypeListSO).Name);
+        Transform btnTemplate = transform.Find("btnTemplate");
+        btnTemplate.gameObject.SetActive(false);
 
-        btnTransformDicionary = new Dictionary<BuildingTypeSO, Transform>();
-        
+        BuildingTypeListSO buildingTypeList = Resources.Load<BuildingTypeListSO>(typeof(BuildingTypeListSO).Name);
 
-        Transform btnsTemplate = transform.Find("BtnTemplate");
+        btnTransformDictionarty = new Dictionary<BuildingTypeSO, Transform>();
 
-        arrowBtn = Instantiate(btnsTemplate, transform);
+        int index = 0;
+
+        arrowBtn = Instantiate(btnTemplate, transform);
         arrowBtn.gameObject.SetActive(true);
 
-        arrowBtn.Find("Image").GetComponent<Image>().sprite = arrowSpr;
+        float offsetAmount = 130f;
+        arrowBtn.GetComponent<RectTransform>().anchoredPosition = new Vector2(offsetAmount * index, 0);
 
-        arrowBtn.GetComponent<Button>().onClick.AddListener(() =>
-        {
+        arrowBtn.Find("image").GetComponent<Image>().sprite = arrowSprite;
+        arrowBtn.Find("image").GetComponent<RectTransform>().sizeDelta = new Vector2(0, -30);
+
+        arrowBtn.GetComponent<Button>().onClick.AddListener(() => {
             BuildingManager.Instance.SetActiveBuildingType(null);
         });
 
-        btnsTemplate.gameObject.SetActive(false);
-
-        foreach (BuildingTypeSO btnTypeItem in btnTypeList.list)
+        MouseEnterExitEvents mouseEnterExitEvents = arrowBtn.GetComponent<MouseEnterExitEvents>();
+        mouseEnterExitEvents.OnMouseEnter += (object sender, EventArgs e) =>
         {
-            if (ignoreBuildingTypeList.Contains(btnTypeItem)) continue;
+            TooltipUI.Instance.Show("Arrow");
+        };
+        mouseEnterExitEvents.OnMouseExit += (object sender, EventArgs e) =>
+        {
+            TooltipUI.Instance.Hide();
+        };
 
-            Transform btnTransform = Instantiate(btnsTemplate, transform);
+        index++;
 
+        foreach (BuildingTypeSO buildingType in buildingTypeList.list)
+        {
+            if (ignoreBuildingTypeList.Contains(buildingType)) continue;
+
+            Transform btnTransform = Instantiate(btnTemplate, transform);
             btnTransform.gameObject.SetActive(true);
 
-            btnTransform.Find("Image").GetComponent<Image>().sprite = btnTypeItem.prefab.GetComponentInChildren<SpriteRenderer>().sprite;
+            //offsetAmount = 130f;
+            btnTransform.GetComponent<RectTransform>().anchoredPosition = new Vector2(offsetAmount * index, 0);
 
-            btnTransform.GetComponent<Button>().onClick.AddListener(() => 
-            {
-                BuildingManager.Instance.SetActiveBuildingType(btnTypeItem);
+            btnTransform.Find("image").GetComponent<Image>().sprite = buildingType.sprite;
+
+            btnTransform.GetComponent<Button>().onClick.AddListener(() => {
+                BuildingManager.Instance.SetActiveBuildingType(buildingType);
             });
 
-            btnTransformDicionary[btnTypeItem] = btnTransform;
+            mouseEnterExitEvents = btnTransform.GetComponent<MouseEnterExitEvents>();
+            mouseEnterExitEvents.OnMouseEnter += (object sender, EventArgs e) =>
+            {
+                TooltipUI.Instance.Show(buildingType.nameString + "\n" + buildingType.GetConstructionResourceCostString());
+            };
+            mouseEnterExitEvents.OnMouseExit += (object sender, EventArgs e) =>
+            {
+                TooltipUI.Instance.Hide();
+            };
+
+            btnTransformDictionarty[buildingType] = btnTransform;
+
+            index++;
         }
     }
 
     private void Start()
     {
-        BuildingManager.Instance.OnActiveBuildingTypeChanged -= BuildingManager_OnActiveBuildingTypeChanged;
         BuildingManager.Instance.OnActiveBuildingTypeChanged += BuildingManager_OnActiveBuildingTypeChanged;
+        UpdateActiveBuildingTypeButton();
     }
 
     private void BuildingManager_OnActiveBuildingTypeChanged(object sender, BuildingManager.OnActiveBuildingTypeChangedEventArgs e)
@@ -70,23 +95,25 @@ public class BuildingTypeSelectUI : MonoBehaviour
 
     private void UpdateActiveBuildingTypeButton()
     {
-        arrowBtn.Find("Selected").gameObject.SetActive(false);
-        foreach (BuildingTypeSO buildingType in btnTransformDicionary.Keys)
+        arrowBtn.Find("selected").gameObject.SetActive(false);
+
+        foreach (BuildingTypeSO buildingType in btnTransformDictionarty.Keys)
         {
-            Transform btnTransform = btnTransformDicionary[buildingType];
-            btnTransform.Find("Selected").gameObject.SetActive(false);
+            Transform btnTransform = btnTransformDictionarty[buildingType];
+            btnTransform.Find("selected").gameObject.SetActive(false);
         }
 
         BuildingTypeSO activeBuildingType = BuildingManager.Instance.GetActiveBuildingType();
 
         if (activeBuildingType == null)
         {
-            arrowBtn.Find("Selected").gameObject.SetActive(true);
+            arrowBtn.Find("selected").gameObject.SetActive(true);
         }
         else
         {
-            btnTransformDicionary[activeBuildingType].Find("Selected").gameObject.SetActive(true);
+            btnTransformDictionarty[activeBuildingType].Find("selected").gameObject.SetActive(true);
         }
     }
 
+    
 }

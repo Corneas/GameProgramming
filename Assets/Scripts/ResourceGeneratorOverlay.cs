@@ -5,30 +5,21 @@ using TMPro;
 
 public class ResourceGeneratorOverlay : MonoBehaviour
 {
-    [SerializeField]
-    private ResourceGenerator resourceGenerator;
-
-    private ResourceGeneratorData resourceGeneratorData;
+    [SerializeField] private ResourceGenerator resourceGenerator;
 
     private Transform barTransform;
-    private Sprite sprite;
-    private TextMeshPro text;
 
     private void Start()
     {
-        resourceGenerator = GetComponentInParent<ResourceGenerator>();
-        resourceGeneratorData = resourceGenerator.GetResourceGeneratorData();
+        ResourceGeneratorData resourceGeneratorData = resourceGenerator.GetResourceGeneratorData();
 
-        barTransform = transform.Find("Bar");
-        transform.Find("Icon").GetComponent<SpriteRenderer>().sprite = resourceGeneratorData.resourceType.resourceSprite;
-        text = transform.Find("Text").GetComponent<TextMeshPro>();
+        barTransform = transform.Find("bar");
+        transform.Find("icon").GetComponent<SpriteRenderer>().sprite = resourceGeneratorData.resourceType.sprite;
+        transform.Find("text").GetComponent<TextMeshPro>().SetText(resourceGenerator.GetAmountGeneratedPerSecond().ToString("f1"));
     }
 
     private void Update()
     {
-        barTransform.localScale = new Vector3(resourceGenerator.GetTimerNormalized(), 1, 1);
-        text.SetText(resourceGenerator.GetAmountGeneratorPerSecond().ToString());
+        barTransform.localScale = new Vector3(1 - resourceGenerator.GetTimerNormalized(), 1, 1);
     }
-
-
 }

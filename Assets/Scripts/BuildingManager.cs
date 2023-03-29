@@ -6,9 +6,7 @@ using UnityEngine.EventSystems;
 
 public class BuildingManager : MonoBehaviour
 {
-    //[SerializeField] private Transform pfWoodHarvester;
-    //[SerializeField] private BuildingTypeSO buildingType;
-    public static BuildingManager Instance { private set; get; }
+    public static BuildingManager Instance { get; private set; }
 
     public event EventHandler<OnActiveBuildingTypeChangedEventArgs> OnActiveBuildingTypeChanged;
 
@@ -25,8 +23,9 @@ public class BuildingManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+
         buildingTypeList = Resources.Load<BuildingTypeListSO>(typeof(BuildingTypeListSO).Name);
-        activeBuildingType = buildingTypeList.list[0];
+        //activeBuildingType = buildingTypeList.list[0];
     }
     private void Start()
     {
@@ -37,13 +36,27 @@ public class BuildingManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
-            if(activeBuildingType != null)
-            {
-                if(CanSpawnBuilding(activeBuildingType, Utils.GetMouseWorldPosition()))
-                    Instantiate(activeBuildingType.prefab, Utils.GetMouseWorldPosition(), Quaternion.identity);
+            if (activeBuildingType != null)
+            {   
+                if(CanSpawnBuilding(activeBuildingType, UtilsClass.GetMouseWorldPosition(), out string errorMessage))
+                {
+                    if ((ResourceManager.Instance.CanAfford(activeBuildingType.constructionResourceCostArray)))
+                    {
+                        ResourceManager.Instance.SpendResources(activeBuildingType.constructionResourceCostArray);
+                        Instantiate(activeBuildingType.prefab, UtilsClass.GetMouseWorldPosition(), Quaternion.identity);
+                    }
+                    else
+                    {
+                        TooltipUI.Instance.Show("자원 부족 : " + activeBuildingType.GetConstructionResourceCostString());
+                    }
+                }
+                else
+                {
+                    TooltipUI.Instance.Show(errorMessage);
+                }
+                
             }
         }
-
     }
 
     public void SetActiveBuildingType(BuildingTypeSO buildingType)
@@ -57,47 +70,49 @@ public class BuildingManager : MonoBehaviour
         return activeBuildingType;
     }
 
-    private bool CanSpawnBuilding(BuildingTypeSO buildingTypeSO, Vector3 pos)
+    private bool CanSpawnBuilding(BuildingTypeSO buildingType, Vector3 position, out string errorMessage)
     {
-        BoxCollider2D boxCollider2D = buildingTypeSO.prefab.GetComponent<BoxCollider2D>();
+        BoxCollider2D boxCollider2D = buildingType.prefab.GetComponent<BoxCollider2D>();
 
+        Collider2D[] collider2DArray = Physics2D.OverlapBoxAll(position + (Vector3)boxCollider2D.offset, boxCollider2D.size, 0);
 
-        Collider2D[] collider2DArr = Physics2D.OverlapBoxAll(pos + (Vector3)boxCollider2D.offset, boxCollider2D.size, 0);
-
-        bool isAreaClear = collider2DArr.Length == 0;
-
-        if (!isAreaClear)
-        {
+        bool isAreaClear = collider2DArray.Length == 0;
+        if (!isAreaClear) {
+            errorMessage = "건물을 놓을 수 없는 곳입니다.";
             return false;
         }
 
-        collider2DArr = Physics2D.OverlapCircleAll(pos, buildingTypeSO.minConstructionRadius);
+        collider2DArray = Physics2D.OverlapCircleAll(position, buildingType.minConstructionRadius);
 
-        foreach(Collider2D col in collider2DArr)
+        foreach (Collider2D collider2D in collider2DArray)
         {
-            BuildingTypeHolder buildingTypeHolder = col.GetComponent<BuildingTypeHolder>();
-            if(buildingTypeHolder != null)
+            BuildingTypeHolder buildingTypeHolder = collider2D.GetComponent<BuildingTypeHolder>();
+            if (buildingTypeHolder != null)
             {
-                if(buildingTypeHolder.buildingType == buildingTypeSO)
+                if (buildingTypeHolder.buildingType == buildingType)
                 {
+                    errorMessage = "같은 유형의 건물이 근처에 있습니다.";
                     return false;
                 }
             }
         }
 
+        float maxConstructionRadius = 25;
+        collider2DArray = Physics2D.OverlapCircleAll(position, maxConstructionRadius);
 
-        float maxConstructionRadius = 25f;
-        collider2DArr = Physics2D.OverlapCircleAll(pos, maxConstructionRadius);
-
-        foreach (Collider2D col in collider2DArr)
+        foreach (Collider2D collider2D in collider2DArray)
         {
-            BuildingTypeHolder buildingTypeHolder = col.GetComponent<BuildingTypeHolder>();
+            BuildingTypeHolder buildingTypeHolder = collider2D.GetComponent<BuildingTypeHolder>();
             if (buildingTypeHolder != null)
             {
+                errorMessage = "";
                 return true;
             }
         }
 
+        errorMessage = "다른 건물이 주변에 있어야 합니다.";
         return false;
     }
+
+
 }

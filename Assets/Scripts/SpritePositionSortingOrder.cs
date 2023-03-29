@@ -4,12 +4,9 @@ using UnityEngine;
 
 public class SpritePositionSortingOrder : MonoBehaviour
 {
-    [SerializeField]
-    private bool runOnce;
+    [SerializeField] private bool runOnce;
 
-    private SpriteRenderer spriteRenderer = null;
-
-    private float percisionMultiplier = 5f;
+    private SpriteRenderer spriteRenderer;
 
     private void Awake()
     {
@@ -18,11 +15,10 @@ public class SpritePositionSortingOrder : MonoBehaviour
 
     private void LateUpdate()
     {
-        spriteRenderer.sortingOrder = (int)(-(transform.position.y - transform.localPosition.y) * percisionMultiplier);
+        float precisionMultiplier = 5f;
+        spriteRenderer.sortingOrder = (int)(-(transform.position.y-transform.localPosition.y) * precisionMultiplier);
 
-        if (runOnce)
-        {
-            Destroy(this);
-        }
+        if (runOnce) Destroy(this);
     }
+
 }

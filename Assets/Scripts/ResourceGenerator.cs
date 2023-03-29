@@ -4,36 +4,55 @@ using UnityEngine;
 
 public class ResourceGenerator : MonoBehaviour
 {
+    public static int GetNearbyResourceAmount(ResourceGeneratorData resourceGeneratorData, Vector3 position)
+    {
+        Collider2D[] collider2DArray = Physics2D.OverlapCircleAll(position, resourceGeneratorData.resourceDetectionRadius);
+
+        int nearbyResourceAmount = 0;
+        foreach (Collider2D collider2D in collider2DArray)
+        {
+            ResourceNode resourceNode = collider2D.GetComponent<ResourceNode>();
+            if (resourceNode != null)
+            {
+                if (resourceNode.resourceType == resourceGeneratorData.resourceType)
+                {
+                    nearbyResourceAmount++;
+                }
+            }
+        }
+
+        nearbyResourceAmount = Mathf.Clamp(nearbyResourceAmount, 0, resourceGeneratorData.maxResourceAmount);
+        return nearbyResourceAmount;
+    }
 
     private ResourceGeneratorData resourceGeneratorData;
     private float timer;
     private float timerMax;
-    private int getResourceAmount = 0;
-
-    private float nearbyResourceAmount = 0f;
-
 
     private void Awake()
     {
         resourceGeneratorData = GetComponent<BuildingTypeHolder>().buildingType.resourceGeneratorData;
         timerMax = resourceGeneratorData.timerMax;
-        getResourceAmount = resourceGeneratorData.resourceAmount;
     }
 
     private void Start()
     {
+        int nearbyResourceAmount = GetNearbyResourceAmount(resourceGeneratorData, transform.position);
 
-        nearbyResourceAmount = Mathf.Clamp(nearbyResourceAmount, 0, resourceGeneratorData.maxResourceAmount);
-        if(nearbyResourceAmount == 0)
+        if (nearbyResourceAmount == 0)
         {
+            transform.Find("pfResourceGeneratorOverlay").gameObject.SetActive(false);
             enabled = false;
         }
         else
         {
-            timerMax = (resourceGeneratorData.timerMax / 2f) + resourceGeneratorData.timerMax * (1 - (float)nearbyResourceAmount / resourceGeneratorData.maxResourceAmount);
+            timerMax = (resourceGeneratorData.timerMax / 2f) +
+                resourceGeneratorData.timerMax *
+                (1 - (float)nearbyResourceAmount / resourceGeneratorData.maxResourceAmount);
         }
 
-        Debug.Log("nearbyResourceAmount : " + nearbyResourceAmount + ", timerMax : " + timerMax);
+        Debug.Log("nearbyResourceAmount: " + nearbyResourceAmount + "; timerMax: " + timerMax);
+
     }
 
     private void Update()
@@ -42,7 +61,7 @@ public class ResourceGenerator : MonoBehaviour
         if (timer <= 0f)
         {
             timer += timerMax;
-            ResourceManager.Instance.AddResource(resourceGeneratorData.resourceType, getResourceAmount);
+            ResourceManager.Instance.AddResource(resourceGeneratorData.resourceType, 1);
         }
     }
 
@@ -56,28 +75,8 @@ public class ResourceGenerator : MonoBehaviour
         return timer / timerMax;
     }
 
-    public float GetAmountGeneratorPerSecond()
+    public float GetAmountGeneratedPerSecond()
     {
         return 1 / timerMax;
-    }
-
-    public static int GetNearbyResourceAmount(ResourceGeneratorData resourceGeneratorData, Vector3 pos)
-    {
-        Collider2D[] collider2DArr = Physics2D.OverlapCircleAll(pos, resourceGeneratorData.resourceDetectionRadius);
-
-        int nearbyResourceAmount = 0;
-        foreach (Collider2D collider2D in collider2DArr)
-        {
-            ResourceNode resourceNode = collider2D.GetComponent<ResourceNode>();
-            if (resourceNode != null)
-            {
-                if (resourceNode.resourceType == resourceGeneratorData.resourceType)
-                    nearbyResourceAmount++;
-            }
-
-        }
-
-        nearbyResourceAmount = Mathf.Clamp(nearbyResourceAmount, 0, resourceGeneratorData.maxResourceAmount);
-        return nearbyResourceAmount;
     }
 }

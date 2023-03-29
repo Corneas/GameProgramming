@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System;
 
 public class ResourceUI : MonoBehaviour
 {
-    private ResourceTypeListSO resourceTypeList;
+    ResourceTypeListSO resourceTypeList;
     private Dictionary<ResourceTypeSO, Transform> resourceTypeTransformDictionary;
 
     private void Awake()
@@ -16,47 +15,45 @@ public class ResourceUI : MonoBehaviour
 
         resourceTypeTransformDictionary = new Dictionary<ResourceTypeSO, Transform>();
 
-        Transform resourceTemplate = transform.Find("ResourceTemplate");
-
+        Transform resourceTemplate = transform.Find("resourceTemplate");
         resourceTemplate.gameObject.SetActive(false);
 
         int index = 0;
-        foreach(ResourceTypeSO resourceTypeItem in resourceTypeList.list)
+        foreach ( ResourceTypeSO resourceType in resourceTypeList.list)
         {
             Transform resourceTransform = Instantiate(resourceTemplate, transform);
-
             resourceTransform.gameObject.SetActive(true);
 
-            resourceTransform.Find("Image").GetComponent<Image>().sprite = resourceTypeItem.resourceSprite;
+            float offsetAmount = -160f;
+            resourceTransform.GetComponent<RectTransform>().anchoredPosition = new Vector2(offsetAmount * index, 0);
 
-            resourceTypeTransformDictionary[resourceTypeItem] = resourceTransform;
+            resourceTransform.Find("image").GetComponent<Image>().sprite = resourceType.sprite;
+
+            resourceTypeTransformDictionary[resourceType] = resourceTransform;
 
             index++;
         }
-
     }
 
     private void Start()
     {
-        ResourceManager.Instance.OnResourceAmountChanged += ResourceManager_OnResourceAmountChanged;
+        ResourceManager.Instance.OnResourceAmountchanged += ResourceManager_OnResourceAmountchanged;
         UpdateResourceAmount();
     }
 
-    private void ResourceManager_OnResourceAmountChanged(object sender, EventArgs e)
+    private void ResourceManager_OnResourceAmountchanged(object sender, System.EventArgs e)
     {
         UpdateResourceAmount();
     }
 
     private void UpdateResourceAmount()
     {
-        foreach (ResourceTypeSO resourceTypeItem in resourceTypeList.list)
+        foreach (ResourceTypeSO resourceType in resourceTypeList.list)
         {
-            Transform resourceTransform = resourceTypeTransformDictionary[resourceTypeItem];
+            Transform resourceTransform = resourceTypeTransformDictionary[resourceType];
 
-            int resourceAmount = ResourceManager.Instance.GetResourceAmount(resourceTypeItem);
-
-            resourceTransform.Find("Text").GetComponent<TextMeshProUGUI>().text = resourceAmount.ToString();
-
+            int resourceAmount = ResourceManager.Instance.GetResourceAmount(resourceType);
+            resourceTransform.Find("text").GetComponent<TextMeshProUGUI>().SetText(resourceAmount.ToString());
         }
     }
 }
