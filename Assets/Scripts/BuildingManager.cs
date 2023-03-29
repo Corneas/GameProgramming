@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 
 public class BuildingManager : MonoBehaviour
 {
+    [SerializeField] private Building hqBuilding;
     public static BuildingManager Instance { get; private set; }
 
     public event EventHandler<OnActiveBuildingTypeChangedEventArgs> OnActiveBuildingTypeChanged;
@@ -25,7 +26,6 @@ public class BuildingManager : MonoBehaviour
         Instance = this;
 
         buildingTypeList = Resources.Load<BuildingTypeListSO>(typeof(BuildingTypeListSO).Name);
-        //activeBuildingType = buildingTypeList.list[0];
     }
     private void Start()
     {
@@ -47,15 +47,22 @@ public class BuildingManager : MonoBehaviour
                     }
                     else
                     {
-                        TooltipUI.Instance.Show("자원 부족 : " + activeBuildingType.GetConstructionResourceCostString());
+                        TooltipUI.Instance.Show("자원 부족 : " + activeBuildingType.GetConstructionResourceCostString(),
+                            new TooltipUI.TooltipTimer { timer = 2f });
                     }
                 }
                 else
                 {
-                    TooltipUI.Instance.Show(errorMessage);
+                    TooltipUI.Instance.Show(errorMessage, new TooltipUI.TooltipTimer { timer = 2f });
                 }
                 
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            Vector3 enemySpawnPosition = UtilsClass.GetMouseWorldPosition() + UtilsClass.GetRandomDir() * 5f;
+            Enemy.Create(enemySpawnPosition);
         }
     }
 
@@ -114,5 +121,9 @@ public class BuildingManager : MonoBehaviour
         return false;
     }
 
+    public Building GetHQBuilding()
+    {
+        return hqBuilding;
+    }
 
 }

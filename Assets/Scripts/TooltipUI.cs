@@ -9,6 +9,7 @@ public class TooltipUI : MonoBehaviour
     private TextMeshProUGUI textMeshPro;
     private RectTransform backgroundrectTransform;
     private RectTransform rectTransform;
+    private TooltipTimer tooltipTimer;
 
     public static TooltipUI Instance { get; private set; }
 
@@ -23,6 +24,17 @@ public class TooltipUI : MonoBehaviour
     }
 
     private void Update()
+    {
+        HandleFollowMouse();
+
+        if (tooltipTimer != null)
+        {
+            tooltipTimer.timer -= Time.deltaTime;
+            if (tooltipTimer.timer <= 0) Hide();
+        }
+    }
+
+    private void HandleFollowMouse()
     {
         Vector2 anchoredPosition = Input.mousePosition / canvasRectTransform.localScale.x;
 
@@ -51,14 +63,21 @@ public class TooltipUI : MonoBehaviour
         backgroundrectTransform.sizeDelta = textSize + padding;
     }
 
-    public void Show(string tooltipText)
+    public void Show(string tooltipText, TooltipTimer tooltipTimer = null)
     {
+        this.tooltipTimer = tooltipTimer;
         gameObject.SetActive(true);
         SetText(tooltipText);
+        HandleFollowMouse();
     }
 
     public void Hide()
     {
         gameObject.SetActive(false);
+    }
+
+    public class TooltipTimer
+    {
+        public float timer;
     }
 }
