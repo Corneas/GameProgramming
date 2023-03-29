@@ -62,7 +62,7 @@ public class EnemyWaveManager : MonoBehaviour
                         {
                             state = State.WaitingToSpawnNextWave;
                             spawnPosition = spawnPosTranform[Random.Range(0, spawnPosTranform.Length)].position;
-                            // nextWaveSpawnPosTransform.position = spawnPosition;
+                            nextWaveSpawnPosTransform.position = spawnPosition;
                         }
                     }
                 }
@@ -83,12 +83,6 @@ public class EnemyWaveManager : MonoBehaviour
         OnWaveNumberChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    public int GetWaverNumber()
-    {
-        return waveNumber;
-    }
-    public float GetNextWaveSpawnTimer()
-    {
-        return nextWaveSpawnTimer;
-    }
+    public int GetWaverNumber() => waveNumber;
+    public float GetNextWaveSpawnTimer() => nextWaveSpawnTimer;
 }
