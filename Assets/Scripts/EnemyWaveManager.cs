@@ -85,4 +85,8 @@ public class EnemyWaveManager : MonoBehaviour
 
     public int GetWaverNumber() => waveNumber;
     public float GetNextWaveSpawnTimer() => nextWaveSpawnTimer;
+    public Vector3 GetSpawnPosition()
+    {
+        return spawnPosition;
+    }
 }
