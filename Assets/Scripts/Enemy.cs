@@ -25,6 +25,8 @@ public class Enemy : MonoBehaviour
         rigidbody2d = GetComponent<Rigidbody2D>();
         targetTransform = BuildingManager.Instance.GetHQBuilding().transform;
         healthSystem = GetComponent<HealthSystem>();
+        healthSystem.OnDamaged -= HealthSystem_OnDamaged;
+        healthSystem.OnDamaged += HealthSystem_OnDamaged;
         healthSystem.OnDied -= HealthSystem_OnDied;
         healthSystem.OnDied += HealthSystem_OnDied;
 
@@ -106,6 +108,12 @@ public class Enemy : MonoBehaviour
 
     private void HealthSystem_OnDied(object sender, System.EventArgs e)
     {
+        SoundManager.Instance.PlaySound(SoundManager.Sound.EnemyDie);
         Destroy(gameObject);
+    }
+
+    private void HealthSystem_OnDamaged(object sender, System.EventArgs e)
+    {
+        SoundManager.Instance.PlaySound(SoundManager.Sound.EnemyHit);
     }
 }

@@ -15,7 +15,7 @@ public class BuildingDemolishBtn : MonoBehaviour
         {
             ResourceManager.Instance.AddResource(resourceAmount.resourceType, Mathf.FloorToInt(resourceAmount.amount * 0.6f));
         }
-        Destroy(building.gameObject);
+        // Destroy(building.gameObject);
     }
 
 

@@ -8,6 +8,9 @@
         },
         {
             "m_Id": "7fc75f458510461297c93de61e499744"
+        },
+        {
+            "m_Id": "3c87fa440477476d88f5dec92ded069f"
         }
     ],
     "m_Keywords": [],
@@ -470,6 +473,35 @@
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.Rendering.Universal.ShaderGraph.UniversalSpriteLitSubTarget",
     "m_ObjectId": "35c96f266bb647b492fb932bc07ad1fb"
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.Texture2DShaderProperty",
+    "m_ObjectId": "3c87fa440477476d88f5dec92ded069f",
+    "m_Guid": {
+        "m_GuidSerialized": "42123bea-e468-4997-abd0-3c348dcd0321"
+    },
+    "m_Name": "EmissionTex",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "EmissionTex",
+    "m_DefaultReferenceName": "_EmissionTex",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": {
+        "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"49aed72b3ea76684e88b877779d0880c\",\"type\":3}}",
+        "m_Guid": ""
+    },
+    "isMainTexture": false,
+    "useTilingAndOffset": false,
+    "m_Modifiable": true,
+    "m_DefaultType": 0
 }
 
 {
@@ -1147,6 +1179,9 @@
         },
         {
             "m_Id": "7fc75f458510461297c93de61e499744"
+        },
+        {
+            "m_Id": "3c87fa440477476d88f5dec92ded069f"
         }
     ]
 }

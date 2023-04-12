@@ -7,11 +7,14 @@ public class Building : MonoBehaviour
     private BuildingTypeSO buildingType;
     private HealthSystem healthSystem;
     private Transform buildingDemolishBtn;
+    private Transform buildingRepairBtn;
 
     private void Awake()
     {
         buildingDemolishBtn = transform.Find("pfBuildingDemolishBtn");
+        buildingRepairBtn = transform.Find("pfBuildingRepairBtn");
         HideBuildingDemolishBtn();
+        HideBuildingRepairBtn();
     }
 
     private void Start()
@@ -19,7 +22,10 @@ public class Building : MonoBehaviour
         buildingType = GetComponent<BuildingTypeHolder>().buildingType;
         healthSystem = GetComponent<HealthSystem>();
         healthSystem.SetHealthAmountMax(buildingType.healthAmountMax, true);
+        healthSystem.OnDied -= HealthSystem_OnDied;
         healthSystem.OnDied += HealthSystem_OnDied;
+        healthSystem.OnDamaged -= HealthSystem_OnDamaged;
+        healthSystem.OnDamaged += HealthSystem_OnDamaged;
     }
 
     private void OnMouseEnter()
@@ -31,6 +37,13 @@ public class Building : MonoBehaviour
     {
         HideBuildingDemolishBtn();
     }
+
+    private void HealthSystem_OnDamaged(object sender, System.EventArgs e)
+    {
+        ShowBuildingRepairBtn();
+        SoundManager.Instance.PlaySound(SoundManager.Sound.BuildingDamaged);
+    }
+
 
     private void ShowBuildingDemolishBtn()
     {
@@ -47,9 +60,26 @@ public class Building : MonoBehaviour
         }
     }
 
+    private void ShowBuildingRepairBtn()
+    {
+        if (buildingRepairBtn != null)
+        {
+            buildingRepairBtn.gameObject.SetActive(true);
+        }
+    }
+
+    private void HideBuildingRepairBtn()
+    {
+        if (buildingRepairBtn != null)
+        {
+            buildingRepairBtn.gameObject.SetActive(false);
+        }
+    }
+
 
     private void HealthSystem_OnDied(object sender, System.EventArgs e)
     {
         Destroy(gameObject);
+        SoundManager.Instance.PlaySound(SoundManager.Sound.BuildingDestroyed);
     }
 }
