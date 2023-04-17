@@ -24,7 +24,6 @@ public class BuildingManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-
         buildingTypeList = Resources.Load<BuildingTypeListSO>(typeof(BuildingTypeListSO).Name);
     }
     private void Start()
@@ -113,6 +112,18 @@ public class BuildingManager : MonoBehaviour
                     errorMessage = "같은 유형의 건물이 근처에 있습니다.";
                     return false;
                 }
+            }
+        }
+
+        if (buildingType.hasResourceGeneratorData)
+        {
+            ResourceGeneratorData resourceGeneratorData = buildingType.resourceGeneratorData;
+            int nearbyResourceAmount = ResourceGenerator.GetNearbyResourceAmount(resourceGeneratorData, position);  
+
+            if(nearbyResourceAmount == 0)
+            {
+                errorMessage = "리소스 주변에 없어!";
+                return false;
             }
         }
 

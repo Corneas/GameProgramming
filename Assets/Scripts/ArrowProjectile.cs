@@ -10,7 +10,7 @@ public class ArrowProjectile : MonoBehaviour
 
     public static ArrowProjectile Create(Vector3 position, Enemy enemy)
     {
-        Transform pfArrowProjectile = Resources.Load<Transform>("pfArrowProjectile");
+        Transform pfArrowProjectile = Instantiate(GameAssets.Instance.pfArrowProjectile, position, Quaternion.identity);
         Transform arrowTransform = Instantiate(pfArrowProjectile, position, Quaternion.identity);
 
         ArrowProjectile arrowProjectile = arrowTransform.GetComponent<ArrowProjectile>();
