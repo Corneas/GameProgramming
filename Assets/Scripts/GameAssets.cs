@@ -21,6 +21,6 @@ public class GameAssets : MonoBehaviour
     public Transform pfEnemyDieParticles;
     public Transform pfArrowProjectile;
     public Transform pfBuildingDestroyedParticles;
-    public Transform pfBuildingConsruction;
+    public Transform pfBuildingConstruction;
     public Transform pfBuildingPlacedParticles;
 }

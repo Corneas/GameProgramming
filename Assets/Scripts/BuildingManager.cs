@@ -45,6 +45,7 @@ public class BuildingManager : MonoBehaviour
                 {
                     if ((ResourceManager.Instance.CanAfford(activeBuildingType.constructionResourceCostArray)))
                     {
+                        Debug.Log("spawn");
                         ResourceManager.Instance.SpendResources(activeBuildingType.constructionResourceCostArray);
                         //Instantiate(activeBuildingType.prefab, UtilsClass.GetMouseWorldPosition(), Quaternion.identity);
                         BuildingConstruction.Create(UtilsClass.GetMouseWorldPosition(), activeBuildingType);

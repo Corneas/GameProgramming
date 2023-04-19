@@ -247,7 +247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthSystem: {fileID: 1111008279364809370}
-  goldResourceType: {fileID: 0}
+  goldResourceType: {fileID: 11400000, guid: e4993b28940d1014e933b8b7667c17ef, type: 2}
 --- !u!1 &2485170666297551188
 GameObject:
   m_ObjectHideFlags: 0

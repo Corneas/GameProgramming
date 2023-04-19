@@ -140,7 +140,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 08eff76349a64114e9413ef5fdb8c16d, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -162,11 +162,11 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.60784316}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 6.805486, y: 5.330078}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -192,6 +192,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1796446298434122232}
     m_Modifications:
+    - target: {fileID: 427511131914857392, guid: 26927dae9b3335a43995768f1c3ff447, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 427511131914857406, guid: 26927dae9b3335a43995768f1c3ff447, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -279,6 +283,26 @@ PrefabInstance:
     - target: {fileID: 427511131914857407, guid: 26927dae9b3335a43995768f1c3ff447, type: 3}
       propertyPath: m_Name
       value: pfConstructionTimerUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 427511131914857407, guid: 26927dae9b3335a43995768f1c3ff447, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 427511131922890406, guid: 26927dae9b3335a43995768f1c3ff447, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 427511131922890406, guid: 26927dae9b3335a43995768f1c3ff447, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 427511132941062346, guid: 26927dae9b3335a43995768f1c3ff447, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 427511132941062346, guid: 26927dae9b3335a43995768f1c3ff447, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3592717863433199026, guid: 26927dae9b3335a43995768f1c3ff447, type: 3}
       propertyPath: buildingConstruction
