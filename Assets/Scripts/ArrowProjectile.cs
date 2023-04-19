@@ -55,7 +55,7 @@ public class ArrowProjectile : MonoBehaviour
         Enemy enemy = collision.GetComponent<Enemy>();
         if(enemy != null)
         {
-            int damageAmount = 10;
+            int damageAmount = 30;
             enemy.GetComponent<HealthSystem>().Damage(damageAmount);
             Destroy(gameObject);
         }

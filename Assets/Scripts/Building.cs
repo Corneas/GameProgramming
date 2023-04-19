@@ -26,6 +26,7 @@ public class Building : MonoBehaviour
         healthSystem.OnDied += HealthSystem_OnDied;
         healthSystem.OnDamaged -= HealthSystem_OnDamaged;
         healthSystem.OnDamaged += HealthSystem_OnDamaged;
+        healthSystem.RegenerateHealth();
     }
 
     private void OnMouseEnter()
@@ -54,6 +55,7 @@ public class Building : MonoBehaviour
             buildingDemolishBtn.gameObject.SetActive(true);
         }
     }
+
     private void HideBuildingDemolishBtn()
     {
         if (buildingDemolishBtn != null)

@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour
 
     private Rigidbody2D rigidbody2d;
     private Transform targetTransform;
-    private HealthSystem healthSystem;
+    public HealthSystem healthSystem { private set; get; }
 
     private float lookForTargetTimer;
     private float lookForTargetTimerMax = .2f;
@@ -70,7 +70,7 @@ public class Enemy : MonoBehaviour
         if(building != null)
         {
             HealthSystem healthSystem = building.GetComponent<HealthSystem>();
-            healthSystem.Damage(10);
+            healthSystem.Damage(5);
             Destroy(gameObject);
             this.healthSystem.Damage(999);
         }

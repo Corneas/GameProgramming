@@ -23,4 +23,5 @@ public class GameAssets : MonoBehaviour
     public Transform pfBuildingDestroyedParticles;
     public Transform pfBuildingConstruction;
     public Transform pfBuildingPlacedParticles;
+    public Transform pfBullet;
 }

@@ -430,7 +430,7 @@ GameObject:
   - component: {fileID: 4859903581182381604}
   - component: {fileID: 6929104148214174117}
   m_Layer: 0
-  m_Name: 'pfBuildingRepairBtn '
+  m_Name: pfBuildingRepairBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

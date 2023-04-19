@@ -11,7 +11,10 @@ public class HealthSystem : MonoBehaviour
     public event EventHandler OnHealed;
     public event EventHandler OnHealthAmountMaxChanged;
 
-    private int healthAmount;
+    private float healthAmount;
+    private float healSpeed = 2f;
+
+    private WaitForEndOfFrame waitForEndOfFrame;
 
     private void Awake()
     {
@@ -20,7 +23,7 @@ public class HealthSystem : MonoBehaviour
 
     private void Start()
     {
-        
+
     }
 
     public void Damage(int damageAmount)
@@ -41,7 +44,7 @@ public class HealthSystem : MonoBehaviour
         return healthAmount == 0;
     }
 
-    public int GetHealthAmount()
+    public float GetHealthAmount()
     {
         return healthAmount;
     }
@@ -84,5 +87,25 @@ public class HealthSystem : MonoBehaviour
     public int GetHealthAmountMax()
     {
         return healthAmountMax;
+    }
+
+    public void RegenerateHealth()
+    {
+        StartCoroutine(IERegenerateHp());
+    }
+
+    private IEnumerator IERegenerateHp()
+    {
+        while (true)
+        {
+            if (healthAmount < healthAmountMax)
+            {
+                healthAmount += Time.deltaTime * healSpeed;
+                healthAmount = Mathf.Clamp(healthAmount, 0, healthAmountMax);
+                OnHealed?.Invoke(this, EventArgs.Empty);
+            }
+
+            yield return waitForEndOfFrame;
+        }
     }
 }

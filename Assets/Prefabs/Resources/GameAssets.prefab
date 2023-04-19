@@ -50,3 +50,4 @@ MonoBehaviour:
   pfBuildingDestroyedParticles: {fileID: 222898084527167713, guid: 188688e7f09e55146bbcafa993ba6ac3, type: 3}
   pfBuildingConstruction: {fileID: 1796446298434122232, guid: 2e0cfa41646e76d41935e9862ee09039, type: 3}
   pfBuildingPlacedParticles: {fileID: 1408080632602542178, guid: 06107d5e8c30ef2449e055cf3d37790b, type: 3}
+  pfBullet: {fileID: 8986096711183894520, guid: 39758234db60cbe479170e3c2adfbbe1, type: 3}
