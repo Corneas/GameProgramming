@@ -20,34 +20,41 @@ public class BulletPool : MonoSingleton<BulletPool>
         for(int i = 0; i < 100; ++i)
         {
             Bullet bulletClone = Instantiate(bullet, transform);
+            bulletClone.transform.SetParent(transform);
             bulletClone.gameObject.SetActive(false);
             bulletQueue.Enqueue(bulletClone);
         }
     }
 
-    public Bullet Pop()
+    public Bullet Pop(Transform pos, Transform parent = null)
     {
-        Debug.Log(bulletQueue.Count);
+        Debug.Log("BulletCount : " + bulletQueue.Count);
+
+        Bullet bulletClone = null;
 
         if(bulletQueue.Count <= 0)
         {
-            return Instantiate(bullet);
+            Debug.Log("Instantiate");
+            bulletClone = Instantiate(bullet, pos.position, Quaternion.identity);
         }
         else
         {
-            Bullet bulletClone = bulletQueue.Dequeue();
-            bulletClone.gameObject.SetActive(true);
-            bulletClone.transform.SetParent(null);
-            return bulletClone;
+            bulletClone = bulletQueue.Dequeue();
         }
+
+        bulletClone.gameObject.transform.position = pos.position;
+        bulletClone.gameObject.SetActive(true);
+        bulletClone.transform.SetParent(parent);
+        return bulletClone;
 
     }
 
     public void Push(Bullet bullet)
     {
-        bullet.transform.SetParent(transform);
-        bullet.gameObject.SetActive(false);
+        Debug.Log("push");
         bulletQueue.Enqueue(bullet);
+        bullet.gameObject.SetActive(false);
+        bullet.transform.SetParent(transform);
     }
 
 

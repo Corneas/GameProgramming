@@ -693,6 +693,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a09879aa7860349419212053c4ba04d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletFireObj: {fileID: 0}
 --- !u!4 &91804352
 Transform:
   m_ObjectHideFlags: 0
@@ -12163,7 +12164,7 @@ GameObject:
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1

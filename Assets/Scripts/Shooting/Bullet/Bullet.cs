@@ -4,17 +4,18 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField]
-    private float bulletSpd = 5f;
+    public float bulletSpd = 5f;
     [SerializeField]
     private int bulletDamage = 30;
 
     private List<Enemy> enemies;
 
+    private Vector3 initPos;
+
     private void OnEnable()
     {
         bulletSpd = 5f;
-        Invoke("Pool", 3f);
+        initPos = transform.position;
     }
 
     private void Update()
@@ -22,13 +23,32 @@ public class Bullet : MonoBehaviour
         CollisionObject();
 
         Move();
+        LimitMove();
     }
-
-
 
     private void Move()
     {
-        transform.Translate(transform.right * Time.deltaTime * bulletSpd, Space.Self);
+        transform.Translate(Vector3.right * Time.deltaTime * bulletSpd, Space.Self);
+    }
+
+    private void LimitMove()
+    {
+        if (transform.position.x > initPos.x + GameManager.Instance.maxPosX)
+        {
+            Pool();
+        }
+        else if (transform.position.x < initPos.x + GameManager.Instance.minPosX)
+        {
+            Pool();
+        }
+        else if(transform.position.y > initPos.y + GameManager.Instance.maxPosY)
+        {
+            Pool();
+        }
+        else if(transform.position.y < initPos.y + GameManager.Instance.minPosY)
+        {
+            Pool();
+        }
     }
 
     private void CollisionObject()
@@ -37,8 +57,13 @@ public class Bullet : MonoBehaviour
 
         for(int i = 0; i < enemies.Count; ++i)
         {
+            if (enemies[i] == null)
+                return;
+
             if(Vector2.Distance(gameObject.transform.position, enemies[i].transform.position) < 2f)
             {
+                if (enemies[i] == null)
+                    return;
                 enemies[i].healthSystem.Damage(bulletDamage);
                 BulletPool.Instance.Push(this);
             }
@@ -47,6 +72,7 @@ public class Bullet : MonoBehaviour
 
     private void Pool()
     {
+        Debug.Log("Pool");
         BulletPool.Instance.Push(this);
     }
 }

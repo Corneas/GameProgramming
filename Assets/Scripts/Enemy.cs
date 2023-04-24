@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
         Transform enemyTransform = Instantiate(pfEnemy, position, Quaternion.identity);
 
         Enemy enemy = enemyTransform.GetComponent<Enemy>();
+        GameManager.Instance.AddEnemyInEnemyList(enemy);
         return enemy;
     }
 
@@ -113,6 +114,7 @@ public class Enemy : MonoBehaviour
         CinemachineShake.Instance.ShakeCamera(7f, .15f);
         ChromaticAberrationEffect.Instance.SetWeight(1f);
         Instantiate(Resources.Load<Transform>("pfEnemyDieParticles"), transform.position, Quaternion.identity);
+        GameManager.Instance.RemoveEnemyInEnemyList(this);
         Destroy(gameObject);
     }
 
