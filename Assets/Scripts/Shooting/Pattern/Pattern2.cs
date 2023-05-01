@@ -20,6 +20,7 @@ public class Pattern2 : ShootingBase
     {
         float fireAngle = 0f;
         float angle = 2f;
+        float acc = 3f;
 
         for (int i = 0; i < 60; ++i)
         {
@@ -35,7 +36,7 @@ public class Pattern2 : ShootingBase
                 // 이차원 좌표평면에서는 오른쪽을 향해야 값이 상승
                 bullet.transform.right = direction;
                 bulletList.Add(bullet);
-                StartCoroutine(BulletAcceleration(bulletList.ToArray(), (i / 2) + 1.5f));
+                StartCoroutine(BulletAcceleration(bulletList.ToArray(), acc));
 
                 fireAngle += 60;
                 if (fireAngle >= 360)
@@ -46,7 +47,10 @@ public class Pattern2 : ShootingBase
             yield return new WaitForSeconds(0.1f);
             bulletList.Clear();
             fireAngle += angle;
+            acc += 0.5f;
         }
+
+        gameObject.SetActive(false);
 
         yield break;
     }

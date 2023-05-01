@@ -75,6 +75,7 @@ public class Bullet : MonoBehaviour
 
     private void CollisionObject()
     {
+        // GameManager에서 EnemyList를 불러온다
         enemies = GameManager.Instance.GetEnemyList();
 
         for(int i = 0; i < enemies.Count; ++i)
@@ -82,7 +83,8 @@ public class Bullet : MonoBehaviour
             if (enemies[i] == null)
                 return;
 
-            if(Vector2.Distance(gameObject.transform.position, enemies[i].transform.position) < attackRange)
+            // 만약 오브젝트의 거리와 적의 거리가 attackRange 이하일 경우
+            if(Vector2.Distance(gameObject.transform.position, enemies[i].transform.position) <= attackRange)
             {
                 if (enemies[i] == null)
                     return;
@@ -91,6 +93,8 @@ public class Bullet : MonoBehaviour
                     Debug.Log("healthSystem is null");
                     return;
                 }
+
+                // 공격
                 enemies[i].healthSystem.Damage(bulletDamage);
                 Pool();
             }

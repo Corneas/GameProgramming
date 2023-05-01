@@ -96,6 +96,8 @@ public class Pattern1 : ShootingBase
             }
         }
 
+        gameObject.SetActive(false);
+
         yield break;
     }
 }
