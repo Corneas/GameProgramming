@@ -19,9 +19,9 @@ public class Pattern2 : ShootingBase
     protected IEnumerator AccVortex()
     {
         float fireAngle = 0f;
-        float angle = 3f;
+        float angle = 2f;
 
-        for (int i = 0; i < 30; ++i)
+        for (int i = 0; i < 60; ++i)
         {
             for (int j = 0; j < 6; ++j)
             {
@@ -35,9 +35,9 @@ public class Pattern2 : ShootingBase
                 // 이차원 좌표평면에서는 오른쪽을 향해야 값이 상승
                 bullet.transform.right = direction;
                 bulletList.Add(bullet);
-                StartCoroutine(BulletAcceleration(bulletList.ToArray(), i + 1.5f));
+                StartCoroutine(BulletAcceleration(bulletList.ToArray(), (i / 2) + 1.5f));
 
-                fireAngle += (60 * j);
+                fireAngle += 60;
                 if (fireAngle >= 360)
                 {
                     fireAngle -= 360;
