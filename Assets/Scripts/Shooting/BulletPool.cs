@@ -28,13 +28,13 @@ public class BulletPool : MonoSingleton<BulletPool>
 
     public Bullet Pop(Transform pos, Transform parent = null)
     {
-        Debug.Log("BulletCount : " + bulletQueue.Count);
+        //Debug.Log("BulletCount : " + bulletQueue.Count);
 
         Bullet bulletClone = null;
 
         if(bulletQueue.Count <= 0)
         {
-            Debug.Log("Instantiate");
+            //Debug.Log("Instantiate");
             bulletClone = Instantiate(bullet, pos.position, Quaternion.identity);
         }
         else
@@ -51,12 +51,9 @@ public class BulletPool : MonoSingleton<BulletPool>
 
     public void Push(Bullet bullet)
     {
-        Debug.Log("push");
+        //Debug.Log("push");
         bulletQueue.Enqueue(bullet);
         bullet.gameObject.SetActive(false);
         bullet.transform.SetParent(transform);
     }
-
-
-
 }

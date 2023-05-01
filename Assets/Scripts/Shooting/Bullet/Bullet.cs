@@ -8,12 +8,18 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     private int bulletDamage = 30;
 
-    private List<Enemy> enemies;
+    private Enemy[] enemies; //List<Enemy> enemies;
 
     private Vector3 initPos;
 
+    [SerializeField]
+    private float attackRange = 2f;
+
+    private bool isPool = false;
+
     private void OnEnable()
     {
+        isPool = false;
         bulletSpd = 5f;
         initPos = transform.position;
     }
@@ -23,6 +29,10 @@ public class Bullet : MonoBehaviour
         CollisionObject();
 
         Move();
+    }
+
+    private void FixedUpdate()
+    {
         LimitMove();
     }
 
@@ -33,6 +43,18 @@ public class Bullet : MonoBehaviour
 
     private void LimitMove()
     {
+        //if (transform.position.x > initPos.x + GameManager.Instance.maxPosX
+        //    || transform.position.x < initPos.x + GameManager.Instance.minPosX
+        //    || transform.position.y > initPos.y + GameManager.Instance.maxPosY
+        //    || transform.position.y < initPos.y + GameManager.Instance.minPosY)
+        //{
+        //    if (!isPool)
+        //    {
+        //        isPool = true;
+        //        Debug.Log("limit");
+        //        Pool();
+        //    }
+        //}
         if (transform.position.x > initPos.x + GameManager.Instance.maxPosX)
         {
             Pool();
@@ -41,11 +63,11 @@ public class Bullet : MonoBehaviour
         {
             Pool();
         }
-        else if(transform.position.y > initPos.y + GameManager.Instance.maxPosY)
+        else if (transform.position.y > initPos.y + GameManager.Instance.maxPosY)
         {
             Pool();
         }
-        else if(transform.position.y < initPos.y + GameManager.Instance.minPosY)
+        else if (transform.position.y < initPos.y + GameManager.Instance.minPosY)
         {
             Pool();
         }
@@ -53,26 +75,31 @@ public class Bullet : MonoBehaviour
 
     private void CollisionObject()
     {
-        enemies = GameManager.Instance.GetEnemyList();
+        enemies = GameManager.Instance.GetEnemyList().ToArray();
 
-        for(int i = 0; i < enemies.Count; ++i)
+        for(int i = 0; i < enemies.Length/*.Count*/; ++i)
         {
             if (enemies[i] == null)
                 return;
 
-            if(Vector2.Distance(gameObject.transform.position, enemies[i].transform.position) < 2f)
+            if(Vector2.Distance(gameObject.transform.position, enemies[i].transform.position) < attackRange)
             {
                 if (enemies[i] == null)
                     return;
+                if(enemies[i].healthSystem == null)
+                {
+                    Debug.Log("healthSystem is null");
+                    return;
+                }
                 enemies[i].healthSystem.Damage(bulletDamage);
-                BulletPool.Instance.Push(this);
+                Pool();
             }
         }
     }
 
     private void Pool()
     {
-        Debug.Log("Pool");
+        //Debug.Log("Pool");
         BulletPool.Instance.Push(this);
     }
 }

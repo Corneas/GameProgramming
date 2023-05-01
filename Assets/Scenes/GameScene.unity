@@ -693,7 +693,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a09879aa7860349419212053c4ba04d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletFireObj: {fileID: 0}
 --- !u!4 &91804352
 Transform:
   m_ObjectHideFlags: 0
@@ -868,7 +867,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!60 &123587180
 PolygonCollider2D:
@@ -1117,7 +1116,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &147116349
 MonoBehaviour:
@@ -4490,7 +4489,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &636388291
 PrefabInstance:
@@ -5008,9 +5007,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: ProjectileSpawnPosition
       objectReference: {fileID: 0}
+    - target: {fileID: 7754750722865336947, guid: b1512f3a7e9d86b499b880a962ef781a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8493229178591858552, guid: b1512f3a7e9d86b499b880a962ef781a, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8493229178591858552, guid: b1512f3a7e9d86b499b880a962ef781a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5653,7 +5656,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &779941607
 MonoBehaviour:
@@ -12180,6 +12183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04036b83ca8f8a64989cd877300a31ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyList: []
 --- !u!4 &1691492707
 Transform:
   m_ObjectHideFlags: 0
@@ -16554,7 +16558,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1552968787840900689, guid: 94e5d3716d5924a47a47c808843c41ee, type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1552968787840900689, guid: 94e5d3716d5924a47a47c808843c41ee, type: 3}
       propertyPath: m_LocalPosition.x

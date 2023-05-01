@@ -6,11 +6,10 @@ public class Enemy : MonoBehaviour
 {
     public static Enemy Create(Vector3 position)
     {
-        Transform pfEnemy = Instantiate(GameAssets.Instance.pfEnemy, position, Quaternion.identity);
-        Transform enemyTransform = Instantiate(pfEnemy, position, Quaternion.identity);
+        //Transform pfEnemy = Instantiate(GameAssets.Instance.pfEnemy, position, Quaternion.identity);
+        Transform enemyTransform = Instantiate(GameAssets.Instance.pfEnemy, position, Quaternion.identity);
 
         Enemy enemy = enemyTransform.GetComponent<Enemy>();
-        GameManager.Instance.AddEnemyInEnemyList(enemy);
         return enemy;
     }
 

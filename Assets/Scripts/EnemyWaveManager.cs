@@ -62,7 +62,9 @@ public class EnemyWaveManager : MonoBehaviour
                     if (nextWaveSpawnTimer < 0f)
                     {
                         nextWaveSpawnTimer = Random.Range(0f, 0.2f);
-                        Enemy.Create(spawnPosition + UtilsClass.GetRandomDir() * Random.Range(0f, 10f));
+                        Debug.Log("EnemySpawn");
+                        Enemy enemy = Enemy.Create(spawnPosition + UtilsClass.GetRandomDir() * Random.Range(0f, 10f));
+                        GameManager.Instance.AddEnemyInEnemyList(enemy);
                         remainingEnemySpawnAmount--;
 
                         if(remainingEnemySpawnAmount <= 0f)
