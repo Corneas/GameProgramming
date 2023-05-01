@@ -26,7 +26,7 @@ public class BulletPool : MonoSingleton<BulletPool>
         }
     }
 
-    public Bullet Pop(Transform pos, Transform parent = null)
+    public Bullet Pop(Vector3 pos, Transform parent = null)
     {
         //Debug.Log("BulletCount : " + bulletQueue.Count);
 
@@ -35,14 +35,14 @@ public class BulletPool : MonoSingleton<BulletPool>
         if(bulletQueue.Count <= 0)
         {
             //Debug.Log("Instantiate");
-            bulletClone = Instantiate(bullet, pos.position, Quaternion.identity);
+            bulletClone = Instantiate(bullet, pos, Quaternion.identity);
         }
         else
         {
             bulletClone = bulletQueue.Dequeue();
         }
 
-        bulletClone.gameObject.transform.position = pos.position;
+        bulletClone.gameObject.transform.position = pos;
         bulletClone.gameObject.SetActive(true);
         bulletClone.transform.SetParent(parent);
         return bulletClone;

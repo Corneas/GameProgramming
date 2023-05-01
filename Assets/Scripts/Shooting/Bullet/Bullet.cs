@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     private int bulletDamage = 30;
 
-    private Enemy[] enemies; //List<Enemy> enemies;
+    private List<Enemy> enemies;
 
     private Vector3 initPos;
 
@@ -75,9 +75,9 @@ public class Bullet : MonoBehaviour
 
     private void CollisionObject()
     {
-        enemies = GameManager.Instance.GetEnemyList().ToArray();
+        enemies = GameManager.Instance.GetEnemyList();
 
-        for(int i = 0; i < enemies.Length/*.Count*/; ++i)
+        for(int i = 0; i < enemies.Count; ++i)
         {
             if (enemies[i] == null)
                 return;

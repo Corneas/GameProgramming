@@ -4,9 +4,9 @@ using UnityEngine;
 
 public abstract class ShootingBase : MonoBehaviour
 {
-    private Transform bulletFireObj = null;
+    protected Transform bulletFireObj = null;
 
-    private void Awake()
+    private void Start()
     {
         Init();
     }
@@ -17,12 +17,12 @@ public abstract class ShootingBase : MonoBehaviour
     /// 원형 발사
     /// </summary>
     /// <returns></returns>
-    protected IEnumerator CircleFire()
+    protected IEnumerator CircleFire(Vector3 pos, int count)
     {
         float fireAngle = 0f;
         float angle = 10f;
 
-        for (int i = 0; i < 5; ++i)
+        for (int i = 0; i < count; ++i)
         {
             fireAngle = i % 2 == 0 ? 0f : 15f;
 
@@ -30,7 +30,7 @@ public abstract class ShootingBase : MonoBehaviour
             {
                 Bullet bullet = null;
 
-                bullet = BulletPool.Instance.Pop(transform);
+                bullet = BulletPool.Instance.Pop(pos);
 
                 // x좌표를 코사인, y좌표를 사인으로 할당하여 반시계 방향으로 움직이는 벡터
                 Vector2 direction = new Vector2(Mathf.Cos(fireAngle * Mathf.Deg2Rad), Mathf.Sin(fireAngle * Mathf.Deg2Rad));
