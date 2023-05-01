@@ -56,11 +56,11 @@ public abstract class ShootingBase : MonoBehaviour
     /// <param name="bullets"></param>
     /// <param name="accel"></param>
     /// <returns></returns>
-    protected IEnumerator BulletAcceleration(Bullet[] bullets, float accel)
+    protected IEnumerator BulletAcceleration(Bullet[] bullets, float accel, float initSpeed = 10f)
     {
         foreach (var bulletItem in bullets)
         {
-           bulletItem.bulletSpd = 10f;
+           bulletItem.bulletSpd = initSpeed;
         }
 
         yield return new WaitForSeconds(0.1f);

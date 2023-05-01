@@ -29,6 +29,14 @@ public class BulletHellManager : MonoBehaviour
         {
             bulletHellPatterns[1].SetActive(true);
         }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            bulletHellPatterns[2].SetActive(true);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            bulletHellPatterns[3].SetActive(true);
+        }
     }
 
     public void FireBulletHellPattern()
