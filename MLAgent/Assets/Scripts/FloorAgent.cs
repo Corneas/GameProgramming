@@ -7,23 +7,12 @@ using Unity.MLAgents.Actuators;
 
 public class FloorAgent : Agent
 {
-    [SerializeField]
-    private GameObject ball;
-
-    private Rigidbody ballRigid;
+    [SerializeField] private GameObject ball;
+    private Rigidbody ballRb;
 
     public override void Initialize()
     {
-        ballRigid = ball.GetComponent<Rigidbody>();
-    }
-
-    public override void OnEpisodeBegin()
-    {
-        transform.rotation = new Quaternion(0f, 0f, 0f, 0f);
-        transform.Rotate(new Vector3(1, 0, 0), Random.Range(-10f, 10f));
-        transform.Rotate(new Vector3(0, 0, 1), Random.Range(-10f, 10f));
-        ballRigid.velocity = new Vector3(0f, 0f, 0f);
-        ball.transform.localPosition = new Vector3(Random.Range(-1.5f, 1.5f), 1.5f, Random.Range(-1.5f, 1.5f));
+        ballRb = ball.GetComponent<Rigidbody>();
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -31,7 +20,7 @@ public class FloorAgent : Agent
         sensor.AddObservation(transform.rotation.z);
         sensor.AddObservation(transform.rotation.x);
         sensor.AddObservation(ball.transform.position - transform.position);
-        sensor.AddObservation(ballRigid.velocity);
+        sensor.AddObservation(ballRb.velocity);
     }
 
     public override void OnActionReceived(ActionBuffers actions)
@@ -53,12 +42,21 @@ public class FloorAgent : Agent
         }
     }
 
+    public override void OnEpisodeBegin()
+    {
+        transform.rotation = new Quaternion(0f, 0f, 0f, 0f);
+        transform.Rotate(new Vector3(1, 0, 0), Random.Range(-10f, 10f));
+        transform.Rotate(new Vector3(0, 0, 1), Random.Range(-10f, 10f));
+        ballRb.velocity = new Vector3(0f, 0f, 0f);
+        ball.transform.localPosition = new Vector3(Random.Range(-1.5f, 1.5f), 1.5f, Random.Range(-1.5f, 1.5f));
+    }
+
     public override void Heuristic(in ActionBuffers actionsOut)
     {
 
     }
 
-    public bool DropBall()
+    private bool DropBall()
     {
         return ball.transform.position.y - transform.position.y < -2f ||
             Mathf.Abs(ball.transform.position.x - transform.position.x) > 2.5f ||
