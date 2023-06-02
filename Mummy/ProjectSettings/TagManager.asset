@@ -9,6 +9,15 @@ TagManager:
   - GoodItem
   - BadItem
   - Wall
+  - Black
+  - Red
+  - Green
+  - Blue
+  - HintBlack
+  - HintRed
+  - HintGreen
+  - HintBlue
+  - Hint
   layers:
   - Default
   - TransparentFX
