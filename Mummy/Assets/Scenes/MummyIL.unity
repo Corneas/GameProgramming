@@ -1003,11 +1003,39 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 432897170777946988, guid: 12918dfa93036224ea0b24d61510ea2a, type: 3}
       propertyPath: m_BehaviorName
-      value: MummyIL
+      value: My Behavior
       objectReference: {fileID: 0}
     - target: {fileID: 432897170777946988, guid: 12918dfa93036224ea0b24d61510ea2a, type: 3}
       propertyPath: m_BehaviorType
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 432897170777946988, guid: 12918dfa93036224ea0b24d61510ea2a, type: 3}
+      propertyPath: m_BrainParameters.VectorObservationSize
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 432897170777946988, guid: 12918dfa93036224ea0b24d61510ea2a, type: 3}
+      propertyPath: m_BrainParameters.VectorActionSize.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 432897170777946988, guid: 12918dfa93036224ea0b24d61510ea2a, type: 3}
+      propertyPath: m_BrainParameters.VectorActionSize.Array.data[0]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 432897170777946988, guid: 12918dfa93036224ea0b24d61510ea2a, type: 3}
+      propertyPath: m_BrainParameters.VectorActionSize.Array.data[1]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 432897170777946988, guid: 12918dfa93036224ea0b24d61510ea2a, type: 3}
+      propertyPath: m_BrainParameters.m_ActionSpec.BranchSizes.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 432897170777946988, guid: 12918dfa93036224ea0b24d61510ea2a, type: 3}
+      propertyPath: m_BrainParameters.m_ActionSpec.BranchSizes.Array.data[0]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 432897170777946988, guid: 12918dfa93036224ea0b24d61510ea2a, type: 3}
+      propertyPath: m_BrainParameters.m_ActionSpec.BranchSizes.Array.data[1]
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4802841356228958900, guid: 12918dfa93036224ea0b24d61510ea2a, type: 3}
       propertyPath: Record
