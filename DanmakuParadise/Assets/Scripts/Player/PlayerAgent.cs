@@ -44,8 +44,6 @@ public class PlayerAgent : Agent
                 break;
         }
 
-        Debug.Log(dir);
-
         transform.Translate(dir * speed * Time.deltaTime);
 
         SetReward(0.01f);
