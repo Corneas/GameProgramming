@@ -2,17 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletMove : MonoBehaviour
+public class Bullet : MonoBehaviour
 {
     public float bulletSpd = 10f;
 
-    private Poolable poolable;
-
     WaitForEndOfFrame waitForEndOfFrame = new WaitForEndOfFrame();
-    private void Awake()
-    {
-        poolable = GetComponent<Poolable>();
-    }
 
     private void OnEnable()
     {
@@ -25,7 +19,7 @@ public class BulletMove : MonoBehaviour
         transform.Translate(Vector3.right * bulletSpd * Time.deltaTime, Space.Self);
 
         Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
-        if (pos.x < -2f || pos.x > 2f || pos.y < -2f || pos.y > 2f)
+        if (pos.x < 0f || pos.x > 1f || pos.y < 0f || pos.y > 1f)
         {
             Pool();
         }
@@ -35,7 +29,7 @@ public class BulletMove : MonoBehaviour
 
     public void Pool()
     {
-        Managers.Pool.Push(poolable);
+        BulletPool.Instance.Push(this);
     }
 
     public IEnumerator Acc(float accel = 0.2f, float limitSpeed = 10f)

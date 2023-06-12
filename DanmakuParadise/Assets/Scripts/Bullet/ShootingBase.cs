@@ -4,26 +4,20 @@ using UnityEngine;
 
 public abstract class ShootingBase : MonoBehaviour
 {
-    public GameObject bulletPre;
+    private Bullet bulletPre;
 
     protected abstract void StartPattern();
 
     private void Awake()
     {
-        Init();
+        bulletPre = Resources.Load<Bullet>("/prefab/Bullet");
     }
-
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
             StartPattern();
         }
-    }
-
-    protected virtual void Init()
-    {
-        Managers.Pool.CreatePool(bulletPre, 100);
     }
 
     // 원형발사
@@ -48,9 +42,9 @@ public abstract class ShootingBase : MonoBehaviour
 
             for (int j = 0; j < 36; ++j)
             {
-                Poolable bullet = null;
+                Bullet bullet = null;
 
-                bullet = Managers.Pool.Pop(bulletPre);
+                bullet = BulletPool.Instance.Pop(transform.position);
 
                 // 삼각함수를 이용하여 원형으로 방향조절
                 Vector2 direction = new Vector2(Mathf.Cos(fireAngle * Mathf.Deg2Rad), Mathf.Sin(fireAngle * Mathf.Deg2Rad));
@@ -90,9 +84,9 @@ public abstract class ShootingBase : MonoBehaviour
 
             for (int j = 0; j < 36; ++j)
             {
-                Poolable bullet = null;
+                Bullet bullet = null;
 
-                bullet = Managers.Pool.Pop(bulletPre);
+                bullet = BulletPool.Instance.Pop(transform.position);
 
                 // 삼각함수를 이용하여 원형으로 방향조절
                 Vector2 direction = new Vector2(Mathf.Cos(fireAngle * Mathf.Deg2Rad), Mathf.Sin(fireAngle * Mathf.Deg2Rad));
@@ -118,7 +112,7 @@ public abstract class ShootingBase : MonoBehaviour
     /// <param name="initSpeed"></param>
     /// <param name="stopTime"></param>
     /// <returns></returns>
-    protected IEnumerator IEBulletAcceleration(BulletMove[] bullets, float accel, float initSpeed = 10f, float stopTime = 0.1f, float startSpeed = 0.8f, float limitSpeed = 10f)
+    protected IEnumerator IEBulletAcceleration(Bullet[] bullets, float accel, float initSpeed = 10f, float stopTime = 0.1f, float startSpeed = 0.8f, float limitSpeed = 10f)
     {
         foreach (var bulletItem in bullets)
         {
