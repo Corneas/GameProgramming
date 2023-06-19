@@ -52,12 +52,12 @@ public class Bullet : MonoBehaviour
 
         //angle += Time.deltaTime;
 
-        //Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
-        //if (pos.x < 0f || pos.x > 1f || pos.y < 0f || pos.y > 1f)
-        //{
-        //    Pool();
-        //}
-        //transform.position = Camera.main.ViewportToWorldPoint(pos);
+        Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
+        if (pos.x < 0f || pos.x > 1f || pos.y < 0f || pos.y > 1f)
+        {
+            Pool();
+        }
+        transform.position = Camera.main.ViewportToWorldPoint(pos);
 
     }
 
