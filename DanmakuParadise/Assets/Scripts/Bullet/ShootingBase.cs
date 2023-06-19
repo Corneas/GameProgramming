@@ -116,14 +116,14 @@ public abstract class ShootingBase : MonoBehaviour
     {
         foreach (var bulletItem in bullets)
         {
-            bulletItem.bulletSpd = initSpeed;
+            bulletItem.BulletSpd = initSpeed;
         }
 
         yield return new WaitForSeconds(stopTime);
 
         foreach (var bulletItem in bullets)
         {
-            bulletItem.bulletSpd = startSpeed;
+            bulletItem.BulletSpd = startSpeed;
             StartCoroutine(bulletItem.Acc(accel, limitSpeed));
         }
 

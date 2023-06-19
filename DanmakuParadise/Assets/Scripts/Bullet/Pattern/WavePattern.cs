@@ -26,7 +26,7 @@ public class WavePattern : ShootingBase
             for(int i = 0; i < 8; ++i)
             {
                 Bullet bullet = BulletPool.Instance.Pop(transform.position);
-                bullet.bulletSpd = 5f;
+                bullet.BulletSpd = 5f;
 
                 Vector2 direction = Vector2.zero;
 

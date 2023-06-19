@@ -13,7 +13,14 @@ public class FlowerPattern1 : ShootingBase
         StartCoroutine(IEFire(135f, -1f));
     }
 
-    public IEnumerator IEFire(float initRot, float dir = 1f)
+    /// <summary>
+    /// 초기 각도, 방향( 1 : 좌, -1 : 우), 추가되는 각도
+    /// </summary>
+    /// <param name="initRot"></param>
+    /// <param name="dir"></param>
+    /// <param name="addAngle"></param>
+    /// <returns></returns>
+    public IEnumerator IEFire(float initRot, float dir = 1f, float addAngle = 0f, float bulletSpd = 3f)
     {
         float fireAngle = initRot;
         float angle = 5f;
@@ -33,7 +40,7 @@ public class FlowerPattern1 : ShootingBase
                 Bullet bullet = null;
 
                 bullet = BulletPool.Instance.Pop(transform.position);
-                bullet.bulletSpd = 3f;
+                bullet.BulletSpd = bulletSpd;
                 Vector2 direction = Vector2.zero;
 
                 // 삼각함수를 이용하여 원형으로 방향조절
@@ -57,6 +64,7 @@ public class FlowerPattern1 : ShootingBase
                 yield return waitForSeconds;
             }
             fireAngle += angle;
+            angle += addAngle;
         }
         //
     }

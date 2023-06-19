@@ -28,7 +28,7 @@ public class RandomShotPattern : ShootingBase
             for(int j = 0; j < 4; ++j)
             {
                 Bullet bullet = BulletPool.Instance.Pop(transform.position);
-                bullet.bulletSpd = 5f;
+                bullet.BulletSpd = 5f;
 
                 Vector3 dir = new Vector3(Mathf.Cos(fireAngle * Mathf.Deg2Rad), Mathf.Sin(fireAngle * Mathf.Deg2Rad)).normalized;
                 bullet.transform.right = dir;
@@ -58,7 +58,7 @@ public class RandomShotPattern : ShootingBase
             {
                 Bullet addBullet = BulletPool.Instance.Pop(bulletArr[i].transform.position);
                 addBullet.transform.position = bulletArr[i].transform.position;
-                addBullet.bulletSpd = 5f;
+                addBullet.BulletSpd = 5f;
 
                 Vector3 dir = new Vector3(Mathf.Cos((j * 90f) * Mathf.Deg2Rad), Mathf.Sin((j * 90f) * Mathf.Deg2Rad));
                 addBullet.transform.right = dir;

@@ -18,7 +18,7 @@ public class BulletPool : MonoSingleton<BulletPool>
         CreatePool();
     }
 
-    public void CreatePool(int amount = 100)
+    public void CreatePool(int amount = 5000)
     {
         for (int i = 0; i < amount; ++i)
         {

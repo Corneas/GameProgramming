@@ -4,26 +4,60 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float bulletSpd = 10f;
+    private float _bulletSpd = 10f;
+    public float BulletSpd
+    {
+        get
+        {
+            return _bulletSpd;
+        }
+        set
+        {
+            _bulletSpd = value;
+            if (_bulletSpd < 0)
+            {
+                _bulletSpd = 0f;
+            }
+        }
+    }
+
+    private float _angle = 0f;
+    public float Angle
+    {
+        get
+        {
+            return _angle;
+        }
+        set
+        {
+            _angle = value;
+        }
+    }
 
     WaitForEndOfFrame waitForEndOfFrame = new WaitForEndOfFrame();
 
     private void OnEnable()
     {
         transform.position = Vector3.zero;
-        bulletSpd = 10f;
+        _bulletSpd = 10f;
     }
 
     private void Update()
     {
-        transform.Translate(Vector3.right * bulletSpd * Time.deltaTime, Space.Self);
-
-        Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
-        if (pos.x < 0f || pos.x > 1f || pos.y < 0f || pos.y > 1f)
+        transform.Translate(Vector3.right * _bulletSpd * Time.deltaTime, Space.Self);
+        if (_angle > 0f || _angle < 0f)
         {
-            Pool();
+            transform.Rotate(new Vector3(0, 0, _angle) * Time.deltaTime);
         }
-        transform.position = Camera.main.ViewportToWorldPoint(pos);
+
+        //angle += Time.deltaTime;
+
+        //Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
+        //if (pos.x < 0f || pos.x > 1f || pos.y < 0f || pos.y > 1f)
+        //{
+        //    Pool();
+        //}
+        //transform.position = Camera.main.ViewportToWorldPoint(pos);
 
     }
 
@@ -34,12 +68,12 @@ public class Bullet : MonoBehaviour
 
     public IEnumerator Acc(float accel = 0.2f, float limitSpeed = 10f)
     {
-        while (bulletSpd < limitSpeed)
+        while (_bulletSpd < limitSpeed)
         {
-            bulletSpd += accel;
-            if (bulletSpd > limitSpeed)
+            _bulletSpd += accel;
+            if (_bulletSpd > limitSpeed)
             {
-                bulletSpd = limitSpeed;
+                _bulletSpd = limitSpeed;
             }
 
             yield return waitForEndOfFrame;
