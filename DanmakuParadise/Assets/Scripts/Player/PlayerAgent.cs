@@ -46,6 +46,13 @@ public class PlayerAgent : Agent
 
         transform.Translate(dir * speed * Time.deltaTime);
 
+        Vector3 playerPos = Camera.main.WorldToViewportPoint(transform.position);
+
+        playerPos.x = Mathf.Clamp(playerPos.x, 0.02f, 0.98f);
+        playerPos.y = Mathf.Clamp(playerPos.y, 0.03f, 0.97f);
+
+        transform.position = Camera.main.ViewportToWorldPoint(playerPos);
+
         SetReward(0.01f);
     }
 
@@ -79,6 +86,7 @@ public class PlayerAgent : Agent
         {
             SetReward(-1f);
             stageManager.InitStage();
+            transform.position = Vector3.down * 0.5f;
             EndEpisode();
         }
     }

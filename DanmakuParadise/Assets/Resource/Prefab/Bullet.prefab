@@ -98,7 +98,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da703ed2aee44cc47a96d753174dc944, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpd: 10
 --- !u!58 &906680698224005554
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -106,7 +105,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2090451970336651028}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1

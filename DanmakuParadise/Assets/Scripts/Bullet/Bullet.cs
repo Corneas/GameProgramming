@@ -36,10 +36,18 @@ public class Bullet : MonoBehaviour
 
     WaitForEndOfFrame waitForEndOfFrame = new WaitForEndOfFrame();
 
+    SpriteRenderer spriteRenderer = null;
+
+    private void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
     private void OnEnable()
     {
         transform.position = Vector3.zero;
         _bulletSpd = 10f;
+        spriteRenderer.color = Color.red;
     }
 
     private void Update()
@@ -78,6 +86,11 @@ public class Bullet : MonoBehaviour
 
             yield return waitForEndOfFrame;
         }
+    }
+
+    public void SetBulletColor(Color changeColor)
+    {
+        spriteRenderer.color = changeColor;
     }
 
 }

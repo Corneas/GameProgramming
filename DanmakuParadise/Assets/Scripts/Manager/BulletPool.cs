@@ -53,5 +53,6 @@ public class BulletPool : MonoSingleton<BulletPool>
         bulletQueue.Enqueue(bullet);
         bullet.gameObject.SetActive(false);
         bullet.transform.SetParent(transform);
+        bullet.transform.position = Vector3.zero;
     }
 }

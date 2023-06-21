@@ -26,6 +26,7 @@ public class WavePattern : ShootingBase
             for(int i = 0; i < 8; ++i)
             {
                 Bullet bullet = BulletPool.Instance.Pop(transform.position);
+                bullet.transform.position = transform.parent.position;
                 bullet.BulletSpd = 5f;
 
                 Vector2 direction = Vector2.zero;
@@ -51,6 +52,8 @@ public class WavePattern : ShootingBase
             yield return waitForSeconds;
         }
 
+        // юс╫ц
+        gameObject.SetActive(false);
         yield break;
     }
 }

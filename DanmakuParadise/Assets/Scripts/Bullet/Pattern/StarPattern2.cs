@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StarPattern : ShootingBase
+public class StarPattern2 : ShootingBase
 {
     // 총알 배치 간격
     [SerializeField]
@@ -10,11 +10,32 @@ public class StarPattern : ShootingBase
 
     // 별 사이즈
     [SerializeField]
-    private float starSize = 2f;
+    private float star1Size = 2f;
+    [SerializeField]
+    private float star2Size = 4f;
 
     // 별 각도
     [SerializeField]
-    private float starAngle = 0f;
+    private float star1Angle = 0f;
+    [SerializeField]
+    private float star2Angle = 180f;
+
+    // 총알 색
+    [SerializeField]
+    private Color star1Color;
+    [SerializeField]
+    private Color star2Color;
+
+    // 별 퍼지는 총알 속도
+    [SerializeField]
+    private float star1Speed = 7.5f;
+    [SerializeField]
+    private float star2Speed = 9f;
+
+    // 총알 배치 속도
+    [Tooltip("작아질 수록 빨라짐")]
+    [SerializeField]
+    private float starPlaceSpeed = 0.025f;
 
     // 라디안값
     private float rad = 0f;
@@ -30,29 +51,34 @@ public class StarPattern : ShootingBase
     // 초기 위치
     private Vector3 initPos;
 
-    private WaitForSeconds waitForZeroPointZeroFive = new WaitForSeconds(0.05f);
+    private WaitForSeconds waitStarPlaceSpeed;
 
-    private List<Bullet> bulletList = new List<Bullet>();
+    Coroutine co1;
+    Coroutine co2;
 
     private void Awake()
     {
         // 초기 위치 초기화
         initPos = transform.parent.position;
+        waitStarPlaceSpeed = new WaitForSeconds(starPlaceSpeed);
     }
 
     protected override void StartPattern()
     {
-        StartCoroutine(Star());
+        isEnd = false;
+        StartCoroutine(MakeMainStar(star1Size, star1Angle, star1Color, star1Speed));
+        StartCoroutine(MakeMainStar(star2Size, star2Angle, star2Color, star2Speed));
     }
 
-    #region 게임 매니악스 탄막 별 예제
     // 별 정점 x좌표
-    private float[] starX = { 0f, -0.59f, 0.95f, -0.95f, 0.59f, 0f};
+    private float[] starX = { 0f, -0.59f, 0.95f, -0.95f, 0.59f, 0f };
     // 별 정점 y좌표
-    private float[] starY = { 1f, -0.81f, 0.31f, 0.31f, -0.81f, 1f};
+    private float[] starY = { 1f, -0.81f, 0.31f, 0.31f, -0.81f, 1f };
 
-    public IEnumerator Star()
+    public IEnumerator MakeMainStar(float starSize, float starAngle, Color color, float bulletSpeed = 7.5f)
     {
+        List<Bullet> bulletList = new List<Bullet>();
+
         // 보간 위치
         float value = 0f;
         // 선형보간 후 좌표
@@ -75,6 +101,7 @@ public class StarPattern : ShootingBase
 
                 Bullet bullet = BulletPool.Instance.Pop(transform.position);
                 bullet.BulletSpd = 0f;
+                bullet.SetBulletColor(color);
 
                 // 별의 각도를 라디안값으로 변경
                 rad = starAngle * Mathf.Deg2Rad;
@@ -89,21 +116,31 @@ public class StarPattern : ShootingBase
                 Vector3 loc = new Vector3(initPos.x + (lerpPos.x * c - lerpPos.y * s), initPos.y + (lerpPos.x * s + lerpPos.y * c));
 
                 bullet.transform.position = loc;
-                bullet.transform.Rotate(0, 0, GetAngle(initPos, loc) /*+ bulletAngle*/);
+                bullet.transform.Rotate(0, 0, GetAngle(initPos, loc) + bulletAngle);
 
                 bulletList.Add(bullet);
 
-                yield return waitForZeroPointZeroFive;
-                
+                yield return waitStarPlaceSpeed;
+
             }
             value = 0f;
         }
 
         yield return new WaitForSeconds(0.5f);
 
-        ShootFreezingBullet(bulletList.ToArray());
+        ShootFreezingBullet(bulletList.ToArray(), bulletSpeed);
         bulletList.Clear();
-        // 임시
+
+        StartCoroutine(End());
+    }
+
+    bool isEnd = false;
+    // 임시
+    public IEnumerator End()
+    {
+        if (isEnd) yield break;
+        isEnd = true;
+        yield return new WaitForSeconds(0.1f);
         gameObject.SetActive(false);
     }
 
@@ -114,6 +151,7 @@ public class StarPattern : ShootingBase
         return a;
     }
 
+    // 동시성 접근 관리 필요
     public float GetAngle(Vector3 targetPos, Vector3 myPos)
     {
         Vector3 dir = targetPos - myPos;
@@ -122,13 +160,11 @@ public class StarPattern : ShootingBase
         return rot;
     }
 
-    public void ShootFreezingBullet(Bullet[] bulletArr)
+    public void ShootFreezingBullet(Bullet[] bulletArr, float speed = 7.5f)
     {
-        for(int i = 0; i < bulletArr.Length; ++i)
+        for (int i = 0; i < bulletArr.Length; ++i)
         {
-            bulletArr[i].BulletSpd = 7.5f;
+            bulletArr[i].BulletSpd = speed;
         }
     }
-
-    #endregion
 }

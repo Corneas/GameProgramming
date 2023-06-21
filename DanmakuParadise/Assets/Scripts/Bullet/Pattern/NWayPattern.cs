@@ -51,5 +51,8 @@ public class NWayPattern : ShootingBase
             }
             yield return waitForSeconds;
         }
+
+        // юс╫ц
+        gameObject.SetActive(false);
     }
 }

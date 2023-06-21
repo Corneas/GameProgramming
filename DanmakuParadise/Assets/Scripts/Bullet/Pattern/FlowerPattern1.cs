@@ -40,6 +40,7 @@ public class FlowerPattern1 : ShootingBase
                 Bullet bullet = null;
 
                 bullet = BulletPool.Instance.Pop(transform.position);
+                bullet.transform.position = transform.parent.position;
                 bullet.BulletSpd = bulletSpd;
                 Vector2 direction = Vector2.zero;
 
@@ -66,6 +67,8 @@ public class FlowerPattern1 : ShootingBase
             fireAngle += angle;
             angle += addAngle;
         }
-        //
+
+        // юс╫ц
+        gameObject.SetActive(false);
     }
 }
