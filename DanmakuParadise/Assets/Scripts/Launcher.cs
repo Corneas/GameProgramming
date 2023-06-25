@@ -9,15 +9,12 @@ public class Launcher : MonoBehaviour
     private bool isPattern = false;
 
     private int prePattern = 0;
+    private Coroutine _co = null;
 
     private void Awake()
     {
         Init();
-    }
-
-    private void Start()
-    {
-        StartCoroutine(CheckPattern());
+        _co = StartCoroutine(CheckPattern());
     }
 
     public void Init()
@@ -26,12 +23,21 @@ public class Launcher : MonoBehaviour
         {
             transform.GetChild(i).gameObject.SetActive(false);
         }
+
+        if (_co != null)
+        {
+            StopCoroutine(CheckPattern());
+        }
+
+        //_co = null;
+
+        //_co = StartCoroutine(CheckPattern());
     }
 
-    public void StartPattern()
-    {
-        StartCoroutine(CheckPattern());
-    }
+    //public void StartPattern()
+    //{
+    //    _co = StartCoroutine(CheckPattern());
+    //}
 
     int rand = 0;
     public IEnumerator CheckPattern()
@@ -51,7 +57,6 @@ public class Launcher : MonoBehaviour
             if (!isPattern)
             {
                 yield return new WaitForSeconds(1f);
-
 
                 rand = Random.Range(0, transform.childCount);
                 if(prePattern == rand)

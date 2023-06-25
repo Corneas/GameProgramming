@@ -24,6 +24,6 @@ public class StageManager : MonoBehaviour
         }
 
         launcher.Init();
-        launcher.StartPattern();
+        //launcher.StartPattern();
     }
 }
