@@ -10,7 +10,16 @@ public class PlayerMove : MonoBehaviour
 
     private float speed = 10f;
 
-    private int damageCount = 0;
+    public int damageCount { private set; get; } = 0;
+
+    private bool isDamaged = false;
+
+    private SpriteRenderer spriteRenderer = null;
+
+    private void Start()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
     void Update()
     {
@@ -21,9 +30,16 @@ public class PlayerMove : MonoBehaviour
 
         transform.Translate(dir * Time.deltaTime * speed);
 
-        if(damageCount > 10)
+        Vector3 playerPos = Camera.main.WorldToViewportPoint(transform.position);
+
+        playerPos.x = Mathf.Clamp(playerPos.x, 0.02f, 0.98f);
+        playerPos.y = Mathf.Clamp(playerPos.y, 0.03f, 0.97f);
+
+        transform.position = Camera.main.ViewportToWorldPoint(playerPos);
+
+        if (damageCount > 4)
         {
-            Debug.Log("GameOver");
+            UIManager.Instance.GameOver();
         }
 
         if (Input.GetKey(KeyCode.LeftShift))
@@ -40,7 +56,27 @@ public class PlayerMove : MonoBehaviour
     {
         if (collision.CompareTag("Bullet"))
         {
-            damageCount++;
+            StartCoroutine(Damaged());
         }
+    }
+
+    public IEnumerator Damaged()
+    {
+        if (isDamaged)
+            yield break;
+
+        isDamaged = true;
+
+        ++damageCount;
+        UIManager.Instance.UpdateHpUI(damageCount - 1);
+
+        for(int i = 0; i < 3; ++i)
+        {
+            spriteRenderer.enabled = false;
+            yield return new WaitForSeconds(0.1f);
+            spriteRenderer.enabled = true;
+            yield return new WaitForSeconds(0.1f);
+        }
+        isDamaged = false;
     }
 }
