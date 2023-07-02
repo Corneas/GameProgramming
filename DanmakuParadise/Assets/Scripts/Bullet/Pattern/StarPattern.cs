@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class StarPattern : ShootingBase
 {
+    public GameObject bulletPrefab = null;
+
     // 총알 배치 간격
     [SerializeField]
     private float interval = 0.1f;
@@ -73,6 +75,7 @@ public class StarPattern : ShootingBase
                 // 선형보간
                 lerpPos = LerpTwoPoint(_P1, _P2, value);
 
+                //Bullet bullet = Instantiate(bulletPrefab).GetComponent<Bullet>();
                 Bullet bullet = BulletPool.Instance.Pop(transform.position);
                 bullet.BulletSpd = 0f;
 
@@ -104,7 +107,7 @@ public class StarPattern : ShootingBase
         ShootFreezingBullet(bulletList.ToArray());
         bulletList.Clear();
         // 임시
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
 
     public Vector3 LerpTwoPoint(Vector3 P1, Vector3 P2, float value)
@@ -118,6 +121,8 @@ public class StarPattern : ShootingBase
     {
         Vector3 dir = targetPos - myPos;
         float rot = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+
+        Debug.Log(rot);
 
         return rot;
     }

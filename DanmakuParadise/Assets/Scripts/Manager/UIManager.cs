@@ -47,7 +47,7 @@ public class UIManager : MonoSingleton<UIManager>
             {
                 remainingTime = 0f;
                 isGameEnd = true;
-                GameOver();
+                //GameOver();
             }
         }
 

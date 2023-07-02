@@ -69,6 +69,6 @@ public class FlowerPattern1 : ShootingBase
         }
 
         // юс╫ц
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
 }

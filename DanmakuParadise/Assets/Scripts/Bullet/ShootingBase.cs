@@ -13,17 +13,17 @@ public abstract class ShootingBase : MonoBehaviour
         bulletPre = Resources.Load<Bullet>("/prefab/Bullet");
     }
 
-    private void OnEnable()
-    {
-        StartPattern();
-    }
-    //private void Update()
+    //private void OnEnable()
     //{
-    //    if (Input.GetKeyDown(KeyCode.Space))
-    //    {
-    //        StartPattern();
-    //    }
+    //    StartPattern();
     //}
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            StartPattern();
+        }
+    }
 
     // 원형발사
     /// <summary>

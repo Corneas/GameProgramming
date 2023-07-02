@@ -15,7 +15,7 @@ public class BulletPool : MonoSingleton<BulletPool>
         bullet = Instantiate(bulletPrefab, transform).GetComponent<Bullet>();
         bullet.gameObject.SetActive(false);
 
-        CreatePool();
+        // CreatePool();
     }
 
     public void CreatePool(int amount = 5000)
@@ -42,8 +42,9 @@ public class BulletPool : MonoSingleton<BulletPool>
             bulletClone = bulletQueue.Dequeue();
         }
 
-        bulletClone.gameObject.transform.position = pos;
         bulletClone.gameObject.SetActive(true);
+        bulletClone.gameObject.transform.position = pos;
+        bulletClone.gameObject.transform.rotation = Quaternion.Euler(Vector3.zero);
         bulletClone.transform.SetParent(parent);
         return bulletClone;
     }

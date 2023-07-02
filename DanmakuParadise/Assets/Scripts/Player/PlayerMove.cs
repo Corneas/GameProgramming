@@ -56,7 +56,7 @@ public class PlayerMove : MonoBehaviour
     {
         if (collision.CompareTag("Bullet"))
         {
-            StartCoroutine(Damaged());
+            // StartCoroutine(Damaged());
         }
     }
 

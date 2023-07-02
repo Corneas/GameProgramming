@@ -13,8 +13,8 @@ public class Launcher : MonoBehaviour
 
     private void Awake()
     {
-        Init();
-        _co = StartCoroutine(CheckPattern());
+        //Init();
+        //_co = StartCoroutine(CheckPattern());
     }
 
     public void Init()

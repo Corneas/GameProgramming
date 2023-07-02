@@ -131,7 +131,7 @@ public class StarPattern2 : ShootingBase
         ShootFreezingBullet(bulletList.ToArray(), bulletSpeed);
         bulletList.Clear();
 
-        StartCoroutine(End());
+        //StartCoroutine(End());
     }
 
     bool isEnd = false;

@@ -53,7 +53,7 @@ public class WavePattern : ShootingBase
         }
 
         // юс╫ц
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
         yield break;
     }
 }
